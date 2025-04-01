@@ -1,0 +1,80 @@
+:root {
+    /* 🌊 Palette principale */
+    --color-navbar: #0077B6;  /* Barre de navigation */
+    --color-button: #00B4D8;  /* Boutons principaux & Call-to-Action */
+    --color-footer: #023E8A;  /* Footer */
+    --color-section-bg: #90E0EF;  /* Arrière-plan clair des sections */
+    --color-card-bg: #CAF0F8;  /* Cartes et boîtes d’information */
+    
+    /* 📝 Textes */
+    --color-text-light: #ffffff;
+    --color-text-dark: #222222;
+}
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-section-bg);
+}
+header {
+    background-color: var(--color-section-bg);
+    color: var(--text);
+    padding: 1rem;
+    text-align: center;
+}
+h1 {
+    margin: 0;
+}
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: var(--color-section-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+label {
+    font-weight: bold;
+}
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+textarea {
+    resize: vertical;
+}
+button {
+    background-color: var(--secondary);
+    color: var(--text);
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+button:hover {
+    background-color: var(--button_hover)
+}
+.review {
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+}
+.review:last-child {
+    border-bottom: none;
+}
+.review-name {
+    font-weight: bold;
+}
+.review-note {
+    color: #ffbf00;
+}
+.review-text {
+    margin: 0.5rem 0 0;
+}

@@ -1,0 +1,151 @@
+/* enclos.css */
+
+/* Styles généraux */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-section-bg);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--color-text-dark);
+    margin: 2rem 0;
+}
+
+/* Section des biomes */
+.biomes {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.biome-button {
+    background-color: var(--color-button);
+    color: var(--color-text-light);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.biome-button:hover {
+    background-color: var(--color-card-bg);
+    color: var(--color-text-dark);
+    transform: scale(1.05);
+}
+
+/* Section des enclos (carrousel) */
+.enclos-carousel {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--color-card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.enclos-carousel.visible {
+    display: block;
+}
+
+.enclos-carousel h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--color-text-dark);
+    margin-bottom: 1.5rem;
+}
+
+/* Conteneur du carrousel */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    text-align: center;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+}
+
+.carousel-item h3 {
+    font-size: 1.5rem;
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.carousel-item p {
+    font-size: 1rem;
+    color: var(--color-text-dark);
+}
+
+/* Contrôles du carrousel */
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.carousel-controls button {
+    background-color: var(--color-button);
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.carousel-controls button:hover {
+    background-color: var(--color-card-bg);
+    color: var(--color-text-dark);
+    transform: scale(1.1);
+}
+
+/* Bouton de retour */
+.back-button {
+    display: block;
+    margin: 2rem auto 0;
+    background-color: var(--color-button);
+    color: var(--color-text-light);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-button:hover {
+    background-color: var(--color-card-bg);
+    color: var(--color-text-dark);
+    transform: scale(1.05);
+}

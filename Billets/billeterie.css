@@ -1,0 +1,171 @@
+/* 
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    color: #333;
+}
+ 
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+ 
+h1, h2 {
+    margin: 0 0 10px;
+    font-weight: 600;
+}
+ 
+p {
+    margin: 0 0 20px;
+}
+ 
+.ticket-section, .reservation-section {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 700px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.cta-button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+}
+ 
+.cta-button:hover {
+    background-color: #45a049;
+}
+
+.download-link {
+    display: none;
+    margin-top: 20px;
+    font-size: 1em;
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+ 
+.download-link:hover {
+    text-decoration: underline;
+} */
+
+/* Styles généraux */
+
+:root {
+    /* 🌊 Palette principale */
+    --color-navbar: #0077B6;  /* Barre de navigation */
+    --color-button: #06D6A0;  /* Boutons principaux & Call-to-Action */
+    --color-footer: #023E8A;  /* Footer */
+    --color-section-bg: #90E0EF;  /* Arrière-plan clair des sections */
+    --color-card-bg: #CAF0F8;  /* Cartes et boîtes d’information */
+    
+    /* 📝 Textes */
+    --color-text-light: #ffffff;
+    --color-text-dark: #222222;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: var(--color-navbar); /* Utilisation de la variable pour la couleur de fond */
+    color: var(--color-text-light); /* Utilisation de la variable pour la couleur du texte */
+}
+
+h1, h2 {
+    margin: 0 0 10px;
+    font-weight: 600;
+}
+
+p {
+    margin: 0 0 20px;
+}
+
+.ticket-section, .reservation-section {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 700px;
+    text-align: center;
+    background-color: var(--color-card-bg); /* Utilisation de la variable pour la couleur de fond */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px); /* Effet de flou pour correspondre à mes_styles.css */
+}
+
+/* Bouton principal */
+.cta-button {
+    display: inline-block;
+    background-color: var(--color-button); /* Utilisation de la variable pour la couleur de fond */
+    color: var(--color-text-light); /* Utilisation de la variable pour la couleur du texte */
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 25px; /* Bordure arrondie comme dans mes_styles.css */
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s; /* Ajout de la transition pour l'effet hover */
+}
+
+.cta-button:hover {
+    background-color: var(--color-card-bg); /* Changement de couleur au survol */
+    transform: scale(1.05); /* Effet de zoom au survol */
+}
+
+/* Styles du formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    font-weight: 500;
+    color: var(--color-text-dark); /* Utilisation de la variable pour la couleur du texte */
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: var(--color-section-bg); /* Utilisation de la variable pour la couleur de fond */
+    color: var(--color-text-dark); /* Utilisation de la variable pour la couleur du texte */
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--color-button); /* Utilisation de la variable pour la couleur de la bordure */
+    box-shadow: 0 0 5px rgba(6, 214, 160, 0.5); /* Ombre pour correspondre à la couleur du bouton */
+}
+
+/* Lien de téléchargement */
+.download-link {
+    display: none;
+    margin-top: 20px;
+    font-size: 1em;
+    color: var(--color-button); /* Utilisation de la variable pour la couleur du texte */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.download-link:hover {
+    text-decoration: underline;
+}
