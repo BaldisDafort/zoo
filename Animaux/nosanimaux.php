@@ -20,90 +20,176 @@
             />
         </div>
         <div class="animal-grid">
+
             <div class="animal-card">
-            <video autoplay loop muted src="Assets\aquanimaux\videos\crabe_trop_mignon.mp4" alt="Loups gris" class="animal-image">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\crabe_trop_mignon.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
                 <div class="animal-info">
-                    <h3>Loups Gris</h3>
-                    <p>Observez ces prédateurs fascinants dans leur habitat reconstitué</p>
+                    <h3 class="animal-name">Crabe</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
                 </div>
             </div>
+
             <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\manchot_swim.mp4" alt="Pandas géants" class="animal-image">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\manchot_swim.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
                 <div class="animal-info">
-                    <h3>Pandas géants</h3>
-                    <p>Venez découvrir ces magnifiques ursidés dans leur espace dédié</p>
+                    <h3 class="animal-name">Manchot</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
                 </div>
             </div>
+
             <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\des_nemos.mp4" alt="Girafes de Rothschild" class="animal-image">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\des_nemos.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
                 <div class="animal-info">
-                    <h3>Girafes de Rothschild</h3>
-                    <p>Admirez la grâce de ces grands herbivores dans la savane provençale</p>
+                    <h3 class="animal-name">Poisson clown</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
                 </div>
             </div>
+
+            
             <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\Tortue-Poissons.mp4" alt="Ours bruns" class="animal-image">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\Tortue-Poissons.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
                 <div class="animal-info">
-                    <h3>Ours Bruns</h3>
-                    <p>Découvrez la force et la puissance de ces mammifères emblématiques</p>
+                    <h3 class="animal-name">Tortue</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
                 </div>
             </div>
+
             <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\banc-poissons.mp4" alt="Nasique" class="animal-image">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\banc-poissons.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
                 <div class="animal-info">
-                    <h3>Nasique</h3>
-                    <p>Observez ce singe arboricole de la famille des cercopithecidés endémique de l'île de Bornéo</p>
+                    <h3 class="animal-name">Banc de poissons</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
                 </div>
             </div>
+
             <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\meduse-champignon-bleu.mp4" alt="Caïman noir" class="animal-image">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\meduse-champignon-bleu.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
                 <div class="animal-info">
-                    <h3>Caïman noir</h3>
-                    <p>Découvrez ces reptiles dans la reconstitution des eaux douces d'Amérique centrale</p>
+                    <h3 class="animal-name">Méduse</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
                 </div>
             </div>
+
             <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\requins.mp4" alt="Tigre du Bengale" class="animal-image">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\requins.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
                 <div class="animal-info">
-                    <h3>Tigre du Bengale</h3>
-                    <p>Observez ce prédateur majestueux dans les mangroves reconstituées</p>
+                    <h3 class="animal-name">Requin</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
                 </div>
             </div>
+
             <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\poisson-stylédansNEMO.mp4" alt="Perroquet" class="animal-image">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\poisson-stylédansNEMO.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
                 <div class="animal-info">
-                    <h3>Perroquet</h3>
-                    <p>Découvrez ces oiseaux psittaciformes, connus pour leur imitation des sons</p>
+                    <h3 class="animal-name">Idole mauresque</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
                 </div>
             </div>
+
             <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\otarie_trop_mingonne.mp4" alt="Python royal" class="animal-image">
-                <div class="animal-info">
-                    <h3>Python royal</h3>
-                    <p>Observez ce serpent dans une grande variété d’habitats</p>
-                </div>    
-            </div>
-            <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\raie.mp4" alt="Zèbre" class="animal-image">
-                <div class="animal-info">
-                    <h3>Zèbre</h3>
-                    <p>Découvrez nos zèbres aux rayures uniques</p>
-                </div> 
-            </div>
-            <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\corail.mp4" alt="Lion" class="animal-image">
-                <div class="animal-info">
-                    <h3>Lion</h3>
-                    <p>Observez le roi de la savane dans un environnement captivant</p>
-                </div> 
-            </div>
-            <div class="animal-card">
-                <video autoplay loop muted src="Assets\aquanimaux\videos\poisson_corail.mp4" alt="Suricate" class="animal-image">
-                <div class="animal-info">
-                    <h3>Suricate</h3>
-                    <p>Découvrez ces petites mangoustes, sentinelles de la savane</p>
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\otarie_trop_mingonne.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
                 </div>
-            </div>         
+                <div class="animal-info">
+                    <h3 class="animal-name">Otarie</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
+                </div>
+            </div>
+
+            <div class="animal-card">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\raie.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
+                <div class="animal-info">
+                    <h3 class="animal-name">Raie</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
+                </div>
+            </div>
+
+            <div class="animal-card">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\corail.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
+                <div class="animal-info">
+                    <h3 class="animal-name">Corail</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
+                </div>
+            </div>
+
+            <div class="animal-card">
+                <div class="animal-video-container">
+                    <video autoplay loop muted>
+                        <source src="Assets\aquanimaux\videos\poisson_corail.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                </div>
+                <div class="animal-info">
+                    <h3 class="animal-name">Poisson-combattant</h3>
+                    <div class="separator"></div>
+                    <p class="animal-description">Description de l'animal ici.</p>
+                </div>
+            </div>
+                   
         </div>
     </main>
     <script>
