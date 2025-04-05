@@ -1,195 +1,51 @@
+<?php
+// Inclure le fichier de configuration pour la connexion à la base de données
+require_once 'config.php';
+
+// Récupérer tous les animaux depuis la base de données
+try {
+    // Requête SQL pour récupérer les données des animaux
+    $query = "SELECT id, name, video_url FROM animaux";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    $animaux = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupérer les résultats sous forme de tableau associatif
+} catch (PDOException $e) {
+    die('Erreur lors de la récupération des animaux : ' . $e->getMessage());
+}
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recherche Animaux</title>
-    <link href="./Animaux/nosanimaux.css" rel="stylesheet">
-    <LINK href="../mes_styles.css" rel="stylesheet" type="text/css">
+    <title>Nos Animaux</title>
+    <link href="../style.css" rel="stylesheet" type="text/css">
+    <LINK href="./nosanimaux.css" rel="stylesheet" type="text/css">
 
 <body>
     <main class="main-content">
         <h2 class="section-title">Découvrez Nos Animaux</h2>
-        <div class="search-container">
-            <input
-                type="text"
-                id="search-bar"
-                placeholder="Recherchez un animal..."
-                onkeyup="filterAnimals()"
-            />
-        </div>
         <div class="animal-grid">
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\crabe_trop_mignon.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Crabe</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\manchot_swim.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Manchot</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\des_nemos.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Poisson clown</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\Tortue-Poissons.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Tortue</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\banc-poissons.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Banc de poissons</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\meduse-champignon-bleu.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Méduse</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\requins.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Requin</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\poisson-stylédansNEMO.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Idole mauresque</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\otarie_trop_mingonne.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Otarie</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\raie.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Raie</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\corail.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Corail</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-
-            <div class="animal-card">
-                <div class="animal-video-container">
-                    <video autoplay loop muted>
-                        <source src="Assets\aquanimaux\videos\poisson_corail.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                <div class="animal-info">
-                    <h3 class="animal-name">Poisson-combattant</h3>
-                    <div class="separator"></div>
-                    <p class="animal-description">Description de l'animal ici.</p>
-                </div>
-            </div>
-                   
+            <?php if (!empty($animaux)): ?>
+                <?php foreach ($animaux as $animal): ?>
+                    <div class="animal-card">
+                        <div class="animal-video-container">
+                            <video autoplay loop muted>
+                                <source src="<?= htmlspecialchars($animal['video_url']) ?>" type="video/mp4">
+                                Votre navigateur ne supporte pas la lecture de vidéos.
+                            </video>
+                        </div>
+                        <div class="animal-info">
+                            <h3 class="animal-name"><?= htmlspecialchars($animal['name']) ?></h3>
+                            <div class="separator"></div>
+                            <p class="animal-description"><?= htmlspecialchars($animal['description']) ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Aucun animal trouvé dans la base de données.</p>
+            <?php endif; ?>
         </div>
     </main>
     <script>

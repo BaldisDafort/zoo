@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donnez Votre Avis - Zoo de la Barben</title>
-	<LINK href="../mes_styles.css" rel="stylesheet" type="text/css">
-    <link href="./Avis/avis.css" rel="stylesheet">
+    <link href="../style.css" rel="stylesheet" type="text/css">
+    <link href="avis.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    <?php include("../nav.html"); ?>
 
 <?php
-require_once './config.php';
+require_once '../config.php';
 try {
     $stmt2 = $pdo->query("SELECT * FROM avis");
     $avis = $stmt2->fetchAll(PDO::FETCH_ASSOC);
@@ -24,12 +25,24 @@ try {
 
 <div class="container">
     <h2>Laissez votre avis</h2>
-    <form id="reviewForm2" action="./avis_save.php" method="POST">
+    <form id="reviewForm" action="./avis_save.php" method="POST">
         <div class="form-group">
             <label for="nom">Nom :</label>
             <input type="text" name="nom" id="nom" required>
         </div>
-		<div class="form-group">
+        <div class="form-group">
+            <label for="enclos">Enclos :</label>
+            <select name="fk_id_enclos" id="enclos" required>
+                <option value="">Sélectionnez un enclos</option>
+                <?php
+                $stmt = $pdo->query("SELECT id, nom FROM enclos");
+                while ($enclos = $stmt->fetch()) {
+                    echo "<option value='" . $enclos['id'] . "'>" . htmlspecialchars($enclos['nom']) . "</option>";
+                }
+                ?>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="note">Note :</label>
             <select id="note" name="note" required>
                 <option value="5">★★★★★ (5/5)</option>
@@ -43,7 +56,7 @@ try {
             <label for="comment">Commentaire :</label>
             <textarea id="commentaire" name="commentaire" rows="4" required></textarea>
         </div>
-        <button type="submit">Soumettre l'avis</button>
+        <button type="submit" class="cta-button">Soumettre l'avis</button>
     </form>
 
     <h2>Avis des visiteurs</h2>
@@ -51,7 +64,7 @@ try {
         <!-- Les avis ajoutés s'afficheront ici -->
 		<?php foreach ($avis as $avi): ?>
 			<div class="ticket-card">
-				<?php echo " par ".htmlspecialchars($avi['nom']); ?></h3>
+				<h3><?php echo " par ".htmlspecialchars($avi['nom']); ?></h3>
 				<div class="price">
 				<?php if ($avi['note']==1) print "★☆☆☆☆ (1/5)";?>
 					<?php if ($avi['note']==2) print "★★☆☆☆ (2/5)";?>

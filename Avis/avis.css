@@ -1,80 +1,66 @@
-:root {
-    /* 🌊 Palette principale */
-    --color-navbar: #0077B6;  /* Barre de navigation */
-    --color-button: #00B4D8;  /* Boutons principaux & Call-to-Action */
-    --color-footer: #023E8A;  /* Footer */
-    --color-section-bg: #90E0EF;  /* Arrière-plan clair des sections */
-    --color-card-bg: #CAF0F8;  /* Cartes et boîtes d’information */
-    
-    /* 📝 Textes */
-    --color-text-light: #ffffff;
-    --color-text-dark: #222222;
-}
-    body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-section-bg);
-}
-header {
-    background-color: var(--color-section-bg);
-    color: var(--text);
-    padding: 1rem;
-    text-align: center;
-}
-h1 {
-    margin: 0;
-}
-.container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background-color: var(--color-section-bg);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.form-group {
+/* Styles spécifiques à la page avis */
+.review {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 1.5rem 0;
     margin-bottom: 1rem;
 }
-label {
-    font-weight: bold;
-}
-input[type="text"], textarea, select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-}
-textarea {
-    resize: vertical;
-}
-button {
-    background-color: var(--secondary);
-    color: var(--text);
-    padding: 0.7rem 1.5rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-}
-button:hover {
-    background-color: var(--button_hover)
-}
-.review {
-    border-bottom: 1px solid #ddd;
-    padding: 1rem 0;
-}
+
 .review:last-child {
     border-bottom: none;
 }
+
 .review-name {
     font-weight: bold;
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
 }
+
 .review-note {
     color: #ffbf00;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
 }
+
 .review-text {
-    margin: 0.5rem 0 0;
+    color: var(--color-text-dark);
+    line-height: 1.6;
+}
+
+/* Styles spécifiques pour le formulaire d'avis */
+#reviewForm {
+    background-color: var(--color-section-bg);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+#reviewForm .form-group {
+    margin-bottom: 1.5rem;
+}
+
+#reviewForm select {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: var(--color-card-bg);
+    color: var(--color-text-dark);
+}
+
+#reviewForm textarea {
+    min-height: 150px;
+}
+
+/* Animation pour les avis */
+.review {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

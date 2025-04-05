@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parc Animalier</title>
-	<LINK href="Enclos\enclos.css" rel="stylesheet" type="text/css">
-    <LINK href="../mes_styles.css" rel="stylesheet" type="text/css">
+    <title>Enclos</title>
+    <link href="../style.css" rel="stylesheet" type="text/css">
+    <link href="enclos.css" rel="stylesheet" type="text/css">
 	<script src="script.js"></script>
 </head>
 <body>

@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nausicaa</title>
-	<link href="./mes_styles.css" rel="stylesheet" type="text/css">
+	<link href="./style.css" rel="stylesheet" type="text/css">
 
 </head>
-<x>    
-	<?php
-	include("./nav.html");
+<body>
+    <?php include("./nav.html"); ?>
+    <?php
     if (isset($_GET["p"])) {
         if ($_GET["p"] == "avis") {
             include("./Avis/avis.php");
@@ -20,7 +20,7 @@
         } elseif ($_GET["p"] == "enclos") {
             include("./Enclos/enclos.php");
         } elseif ($_GET["p"] == "connexion") {
-            include("./Back_Office/auth.php");
+            include("./Back_Office/login.php");
         } elseif ($_GET["p"] == "reserver") {
             include("./Billets/billeterie.php");
         } elseif ($_GET["p"] == "boutique") {
@@ -34,16 +34,15 @@
 	?>
 
     <div class="map-container">
-    <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2521.031165226153!2d1.591928315730758!3d50.73048732782267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47dc2c135521ce51%3A0xd6e845d18f81937f!2sNausicaa%20Centre%20National%20De%20La%20Mer!5e0!3m2!1sfr!2sfr!4v1706800000000!5m2!1sfr!2sfr" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2521.031165226153!2d1.591928315730758!3d50.73048732782267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47dc2c135521ce51%3A0xd6e845d18f81937f!2sNausicaa%20Centre%20National%20De%20La%20Mer!5e0!3m2!1sfr!2sfr!4v1706800000000!5m2!1sfr!2sfr" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
     </div>
 
-</body>
-<footer>
+    <footer>
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Contact</h4>
@@ -59,7 +58,6 @@
                 <ul class="footer-links">
                     <li>Ouvert tous les jours</li>
                     <li>9h30 - 17h00</li>
-
                 </ul>
             </div>
             <div class="footer-section">
@@ -80,7 +78,7 @@
                     <li><a href="https://www.youtube.com/@zoolabarben" target="_blank">YouTube</a></li>
                 </ul>
             </div>
-            
         </div>
     </footer>
+</body>
 </html>

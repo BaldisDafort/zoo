@@ -152,6 +152,21 @@ INSERT INTO `users` (`id`, `fk_id_profil`, `email`, `nickname`, `password`) VALU
 (6, 1, 'kabdelfettah@gmail.com', 'Rimka', '$2y$10$UieZMBUQMoFQ.YTFVJau6.787LInMcdBHwu1ucVRGJZOgHqyDI9bO');
 
 --
+-- Structure de la table `avis`
+--
+
+CREATE TABLE `avis` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  `fk_id_enclos` int DEFAULT NULL,
+  `note` int NOT NULL,
+  `commentaire` text NOT NULL,
+  `date_creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_id_enclos` (`fk_id_enclos`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
 -- Index pour les tables déchargées
 --
 

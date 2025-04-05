@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boutique Souvenir - Zoo de la Barben</title>
+    <title>Boutique</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" rel="stylesheet">
-    <LINK href="../mes_styles.css" rel="stylesheet" type="text/css">
-    <LINK href="./Liens/boutique.css" rel="stylesheet" type="text/css">
+    <LINK href="boutique.css" rel="stylesheet" type="text/css">
+    <link href="../style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -80,6 +80,8 @@
             <p class="price">18,00 €</p>
         </div>
         
+    </div>
+
 </div>
 
 </body>
