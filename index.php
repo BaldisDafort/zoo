@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nausicaa</title>
 	<link href="./style.css" rel="stylesheet" type="text/css">
-
+    <link href="./Back_Office/login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <?php include("./nav.html"); ?>
     <?php
-    if (isset($_GET["p"])) {
+    if ($_GET["p"]!="") {
         if ($_GET["p"] == "avis") {
             include("./Avis/avis.php");
         } elseif ($_GET["p"] == "contact") {
@@ -20,7 +20,7 @@
         } elseif ($_GET["p"] == "enclos") {
             include("./Enclos/enclos.php");
         } elseif ($_GET["p"] == "connexion") {
-            include("./Back_Office/login.php");
+            include("./Back_Office/login.php");    
         } elseif ($_GET["p"] == "reserver") {
             include("./Billets/billeterie.php");
         } elseif ($_GET["p"] == "boutique") {

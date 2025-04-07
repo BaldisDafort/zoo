@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billeterie</title>
     <link href="../style.css" rel="stylesheet" type="text/css">
-    <link href="Billets\billeterie.css" rel="stylesheet" type="text/css"> <!-- Lien vers billeterie.css -->
+    <link href="billeterie.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <header>

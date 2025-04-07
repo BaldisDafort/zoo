@@ -1,12 +1,12 @@
 <?php
 require_once '../config.php';
 session_start();
-
+/*
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
-
+*/
 try {
     // Récupération des informations de l'enclos sélectionné
     $stmt = $pdo->prepare("SELECT * FROM enclos WHERE id = :id");

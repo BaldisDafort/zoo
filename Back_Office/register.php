@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt = $pdo->prepare("INSERT INTO users (fk_id_profil, nickname, email, password) VALUES (?, ?, ?, ?)");
         $stmt->execute([1,$nickname, $email, $password]);
-        header('Location: login.php?success=1');
+        header('Location: ../index.php?p=connexion');
         exit();
     } catch (PDOException $e) {
         die("Erreur lors de l'inscription : " . $e->getMessage());

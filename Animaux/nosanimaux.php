@@ -21,8 +21,8 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nos Animaux</title>
     <link href="../style.css" rel="stylesheet" type="text/css">
-    <LINK href="./nosanimaux.css" rel="stylesheet" type="text/css">
-
+    <link href="nosanimaux.css" rel="stylesheet" type="text/css">
+</head>
 <body>
     <main class="main-content">
         <h2 class="section-title">Découvrez Nos Animaux</h2>

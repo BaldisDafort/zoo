@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
-    <link href="../style.css" rel="stylesheet" type="text/css">
-    <link href="./login.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-    <?php include("../nav.html"); ?>
-
     <?php
-    require_once '../config.php';
     session_start(); //Permet d'acceder au profil du user (name, mdp etc..)
+	if ($_GET["success"]==1) require_once '../config.php';
+	elseif ($_GET["logout"]==1) require_once '../config.php';
+	else require_once './config.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = htmlspecialchars($_POST['email']);
@@ -24,11 +14,11 @@
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC); // fetch permet de récupérer le résultat de la requete et de le save dans le tableau user
 
-            if ($user && password_verify($password, $user['password'])) {
+            if (password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['nickname'] = $user['nickname'];
                 $_SESSION['profil'] = $user['fk_id_profil'];
-                header('Location: profile.php'); //redirige vers la page profil
+                header('Location: ./Back_Office/profile.php'); //redirige vers la page profil
                 exit();
             } else {
                 $error = "Identifiants incorrects."; // Affiche au user le message d'erreur ligne 54
@@ -55,7 +45,5 @@
             </div>
             <button type="submit" class="login-button">Se connecter</button>
         </form>
-        <p class="register-link">Pas encore inscrit ? <a href="register.php">Inscription</a></p>
+        <p class="register-link">Pas encore inscrit ? <a href="./Back_Office/register.php">Inscription</a></p>
     </div>
-</body>
-</html>

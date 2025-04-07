@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donnez Votre Avis - Zoo de la Barben</title>
-    <link href="../style.css" rel="stylesheet" type="text/css">
-    <link href="avis.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-    <?php include("../nav.html"); ?>
-
 <?php
-require_once '../config.php';
+require_once './config.php';
 try {
     $stmt2 = $pdo->query("SELECT * FROM avis");
     $avis = $stmt2->fetchAll(PDO::FETCH_ASSOC);
@@ -25,22 +13,10 @@ try {
 
 <div class="container">
     <h2>Laissez votre avis</h2>
-    <form id="reviewForm" action="./avis_save.php" method="POST">
+    <form id="reviewForm" action="./Avis/avis_save.php" method="POST">
         <div class="form-group">
             <label for="nom">Nom :</label>
             <input type="text" name="nom" id="nom" required>
-        </div>
-        <div class="form-group">
-            <label for="enclos">Enclos :</label>
-            <select name="fk_id_enclos" id="enclos" required>
-                <option value="">Sélectionnez un enclos</option>
-                <?php
-                $stmt = $pdo->query("SELECT id, nom FROM enclos");
-                while ($enclos = $stmt->fetch()) {
-                    echo "<option value='" . $enclos['id'] . "'>" . htmlspecialchars($enclos['nom']) . "</option>";
-                }
-                ?>
-            </select>
         </div>
         <div class="form-group">
             <label for="note">Note :</label>
@@ -78,51 +54,3 @@ try {
 		
     </div>
 </div>
-
-<script>
-    // Fonction pour gérer la soumission du formulaire
-    document.getElementById("reviewForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        
-        // Récupérer les valeurs des champs
-        const name = document.getElementById("name").value;
-        const note = document.getElementById("note").value;
-        const comment = document.getElementById("comment").value;
-        
-        // Créer un élément pour afficher l'avis
-        const review = document.createElement("div");
-        review.classList.add("review");
-        
-        // Ajouter le contenu de l'avis
-        review.innerHTML = `
-            <div class="review-name">${name}</div>
-            <div class="review-note">${'★'.repeat(note) + '☆'.repeat(5 - note)} (${note}/5)</div>
-            <p class="review-text">${comment}</p>
-        `;
-        
-        // Ajouter l'avis au conteneur des avis
-        document.getElementById("reviewsContainer").prepend(review);
-        
-        // Réinitialiser le formulaire
-        document.getElementById("reviewForm").reset();
-    });
-</script>
-
-</body>
-</html>
-
-<?php
-function get_animaux_by_enclos($fk_id_enclos,$pdo) {
-	$stmt = $pdo->query("SELECT name FROM relation_enclos_animaux,animaux WHERE relation_enclos_animaux.fk_id_animal=animaux.id and fk_id_enclos='$fk_id_enclos' order by name");
-    $animaux = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$liste_animaux='';
-	foreach ($animaux as $animal) {
-		if ($liste_animaux=="") {
-			$liste_animaux=$animal['name'];
-		} else {
-			$liste_animaux.=" - ".$animal['name'];
-		}
-	}
-	return $liste_animaux;
-}
-?>
