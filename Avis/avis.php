@@ -18,44 +18,51 @@ try {
     </header>
 
     <div class="container">
-        <h2>Laissez votre avis</h2>
-        <form id="reviewForm" action="avis_save.php" method="POST">
-            <div class="form-group">
-                <label for="nom">Nom :</label>
-                <input type="text" name="nom" id="nom" value="<?php echo isset($_SESSION['user']) ? htmlspecialchars($_SESSION['user']['nickname']) : ''; ?>" readonly>
+        <?php if (!isset($_SESSION['user'])): ?>
+            <div class="login-required">
+                <p>Vous devez être connecté pour laisser un avis.</p>
+                <a href="../index.php?p=connexion&redirect=avis" class="cta-button">Se connecter</a>
             </div>
-            <div class="form-group">
-                <label for="note">Note :</label>
-                <select id="note" name="note" required>
-                    <option value="5">★★★★★ (5/5)</option>
-                    <option value="4">★★★★☆ (4/5)</option>
-                    <option value="3">★★★☆☆ (3/5)</option>
-                    <option value="2">★★☆☆☆ (2/5)</option>
-                    <option value="1">★☆☆☆☆ (1/5)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="comment">Commentaire :</label>
-                <textarea id="commentaire" name="commentaire" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="cta-button">Soumettre l'avis</button>
-        </form>
-
-        <h2>Avis des visiteurs</h2>
-        <div id="reviewsContainer">
-            <?php foreach ($avis as $avi): ?>
-                <div class="ticket-card">
-                    <h3><?php echo " par ".htmlspecialchars($avi['nom']); ?></h3>
-                    <div class="price">
-                        <?php if ($avi['note']==1) print "★☆☆☆☆ (1/5)";?>
-                        <?php if ($avi['note']==2) print "★★☆☆☆ (2/5)";?>
-                        <?php if ($avi['note']==3) print "★★★☆☆ (3/5)";?>
-                        <?php if ($avi['note']==4) print "★★★★☆ (4/5)";?>
-                        <?php if ($avi['note']==5) print "★★★★★ (5/5)";?>
-                    </div>
-                    <p><?php echo htmlspecialchars($avi['commentaire']); ?></p>
+        <?php else: ?>
+            <h2>Laissez votre avis</h2>
+            <form id="reviewForm" action="avis_save.php" method="POST">
+                <div class="form-group">
+                    <label for="nom">Nom :</label>
+                    <input type="text" name="nom" id="nom" value="<?php echo isset($_SESSION['user']) ? htmlspecialchars($_SESSION['user']['nickname']) : ''; ?>" readonly>
                 </div>
-            <?php endforeach; ?>
-        </div>
+                <div class="form-group">
+                    <label for="note">Note :</label>
+                    <select id="note" name="note" required>
+                        <option value="5">★★★★★ (5/5)</option>
+                        <option value="4">★★★★☆ (4/5)</option>
+                        <option value="3">★★★☆☆ (3/5)</option>
+                        <option value="2">★★☆☆☆ (2/5)</option>
+                        <option value="1">★☆☆☆☆ (1/5)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Commentaire :</label>
+                    <textarea id="commentaire" name="commentaire" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="cta-button">Soumettre l'avis</button>
+            </form>
+
+            <h2>Avis des visiteurs</h2>
+            <div id="reviewsContainer">
+                <?php foreach ($avis as $avi): ?>
+                    <div class="ticket-card">
+                        <h3><?php echo " par ".htmlspecialchars($avi['nom']); ?></h3>
+                        <div class="price">
+                            <?php if ($avi['note']==1) print "★☆☆☆☆ (1/5)";?>
+                            <?php if ($avi['note']==2) print "★★☆☆☆ (2/5)";?>
+                            <?php if ($avi['note']==3) print "★★★☆☆ (3/5)";?>
+                            <?php if ($avi['note']==4) print "★★★★☆ (4/5)";?>
+                            <?php if ($avi['note']==5) print "★★★★★ (5/5)";?>
+                        </div>
+                        <p><?php echo htmlspecialchars($avi['commentaire']); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </div>

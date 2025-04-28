@@ -19,7 +19,7 @@ if (isset($_GET['p'])) {
     // Vérification des pages protégées
     $protected_pages = ['avis', 'reserver'];
     if (in_array($page, $protected_pages) && !isset($_SESSION['user'])) {
-        $_SESSION['redirect_after_login'] = 'https://' . $_SERVER['HTTP_HOST'] . '/index.php?p=' . $page;
+        $_SESSION['redirect_after_login'] = $page;
         header('Location: index.php?p=connexion');
         exit();
     }
@@ -29,10 +29,10 @@ if (isset($_GET['p'])) {
         if (isset($_SESSION['redirect_after_login'])) {
             $redirect = $_SESSION['redirect_after_login'];
             unset($_SESSION['redirect_after_login']);
-            header('Location: ' . $redirect);
+            header('Location: index.php?p=' . $redirect);
             exit();
         } else {
-            header('Location: index.php');
+            header('Location: index.php?p=profil');
             exit();
         }
     }
@@ -44,7 +44,7 @@ if (isset($_GET['p'])) {
 if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
     $redirect = $_SESSION['redirect_after_login'];
     unset($_SESSION['redirect_after_login']);
-    header('Location: ' . $redirect);
+    header('Location: index.php?p=' . $redirect);
     exit();
 }
 ?>
@@ -59,10 +59,13 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
     <!-- CSS des modules -->
     <link href="Back_Office/login.css" rel="stylesheet" type="text/css">
     <link href="Back_Office/profile.css" rel="stylesheet" type="text/css">
+    <link href="Back_Office/admin.css" rel="stylesheet" type="text/css">
     <link href="Avis/avis.css" rel="stylesheet" type="text/css">
     <link href="Enclos/enclos.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- Scripts -->
     <script src="Enclos/enclos.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 <body>
     <?php include("./nav.html"); ?>
@@ -90,6 +93,12 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
             case "connexion":
                 include("./Back_Office/login.php");
                 break;
+            case "admin":
+                include("./Back_Office/admin.php");
+                break;
+            case "liste_users":
+                include("./Back_Office/liste_users.php");
+                break;
             case "logout":
                 session_destroy();
                 header('Location: index.php');
@@ -101,6 +110,25 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
     } else {
         include("./accueil.html");
     }
+    ?>
+
+    <?php if (isset($_SESSION['success_message'])): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Toastify({
+                text: "<?php echo addslashes($_SESSION['success_message']); ?>",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                className: "toastify-success",
+                stopOnFocus: true
+            }).showToast();
+        });
+    </script>
+    <?php 
+    // Supprimer le message après l'avoir affiché
+    unset($_SESSION['success_message']);
+    endif; 
     ?>
 
     <div class="map-container">

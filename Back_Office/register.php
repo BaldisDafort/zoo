@@ -9,10 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = htmlspecialchars($_POST['email']);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $fk_id_profil = 2; // Les nouveaux inscrits seront en compte client
+    $role = 'client'; // Rôle par défaut
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO users (fk_id_profil, nickname, email, password) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$fk_id_profil, $nickname, $email, $password]);
+        $stmt = $pdo->prepare("INSERT INTO users (fk_id_profil, nickname, email, password, role) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$fk_id_profil, $nickname, $email, $password, $role]);
         $_SESSION['redirect'] = '../index.php?p=connexion';
         return;
     } catch (PDOException $e) {

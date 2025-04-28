@@ -169,3 +169,136 @@ h1 {
     }
 
 }
+
+.enclos-status {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.status-open, .status-closed {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.status-open {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.status-closed {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Styles existants */
+.enclos-page {
+    padding: 2rem;
+}
+
+.enclos-section {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.enclos-section h1 {
+    text-align: center;
+    color: var(--color-text-dark);
+    margin-bottom: 2rem;
+}
+
+.enclos-carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+
+.carousel-item {
+    min-width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--color-card-bg);
+}
+
+.carousel-item video {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.carousel-item h3 {
+    color: var(--color-text-dark);
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    transform: translateY(-50%);
+}
+
+.carousel-controls button {
+    background-color: var(--color-button);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.carousel-controls button:hover {
+    background-color: var(--color-section-bg);
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.indicator.active {
+    background-color: var(--color-button);
+}

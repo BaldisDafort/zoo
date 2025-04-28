@@ -4,18 +4,19 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/notifications.php';
+
+// Récupérer la page d'origine
+$redirect_page = $_GET['redirect'] ?? '';
 
 // Si l'utilisateur est déjà connecté, rediriger vers la page demandée ou l'accueil
 if (isset($_SESSION['user'])) {
-    if (isset($_SESSION['redirect_after_login'])) {
-        $redirect = $_SESSION['redirect_after_login'];
-        unset($_SESSION['redirect_after_login']);
-        header('Location: ' . $redirect);
-        exit();
+    if ($redirect_page) {
+        header('Location: ../index.php?p=' . $redirect_page);
     } else {
-        header('Location: ../index.php');
-        exit();
+        header('Location: ../index.php?p=profil');
     }
+    exit();
 }
 
 // Traitement du formulaire de connexion
@@ -30,13 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user'] = $user;
-            if (isset($_SESSION['redirect_after_login'])) {
-                $redirect = $_SESSION['redirect_after_login'];
-                unset($_SESSION['redirect_after_login']);
-                header('Location: ' . $redirect);
-            } else {
-                header('Location: ../index.php?p=profil');
+            $_SESSION['success_message'] = 'Connexion réussie !';
+            
+            // Stocker la page de redirection dans la session
+            if ($redirect_page) {
+                $_SESSION['redirect_after_login'] = $redirect_page;
             }
+            
+            // Rediriger vers index.php qui gérera la redirection finale
+            header('Location: ../index.php');
             exit();
         } else {
             $error = "Email ou mot de passe incorrect";
@@ -50,19 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="login-page">
     <div class="login-container">
         <h1>Connexion</h1>
-        <?php if (isset($_SESSION['error_message'])): ?>
-            <div class="error-message">
-                <?php 
-                echo $_SESSION['error_message'];
-                unset($_SESSION['error_message']);
-                ?>
-            </div>
-        <?php endif; ?>
         <?php if (isset($error)): ?>
             <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
         
         <form method="POST" action="">
+            <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($redirect_page); ?>">
             <div class="form-group">
                 <label for="email">Email :</label>
                 <input type="email" id="email" name="email" required>
@@ -79,3 +75,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="register-link">Pas encore de compte ? <a href="../index.php?p=register">S'inscrire</a></p>
     </div>
 </div>
+
+<?php if (isset($error)): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Toastify({
+            text: "<?php echo addslashes($error); ?>",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            className: "toastify-error",
+            stopOnFocus: true
+        }).showToast();
+    });
+</script>
+<?php endif; ?>

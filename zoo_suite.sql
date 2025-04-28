@@ -140,6 +140,7 @@ CREATE TABLE `users` (
   `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `nickname` text NOT NULL,
   `password` text NOT NULL,
+  `role` ENUM('client', 'admin') NOT NULL DEFAULT 'client',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -147,10 +148,10 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `fk_id_profil`, `email`, `nickname`, `password`) VALUES
-(3, 1, 'kabdelfettah@gmail.com', 'Rimka83270', '$2y$10$HHYhXff5/GO/LDjYbDkX5e/uU9QKd7gSOj7TNfv/eNFLxKjGkjKF6'),
-(5, 1, 'selim@gmail.com', 'loup', '$2y$10$PvIgyhqSBnd4jYTJbcnkzO0cN5VmJMRcgufGDri2d2GFjFsN8uCwW'),
-(6, 1, 'kabdelfettah@gmail.com', 'Rimka', '$2y$10$UieZMBUQMoFQ.YTFVJau6.787LInMcdBHwu1ucVRGJZOgHqyDI9bO');
+INSERT INTO `users` (`id`, `fk_id_profil`, `email`, `nickname`, `password`, `role`) VALUES
+(3, 1, 'kabdelfettah@gmail.com', 'Rimka83270', '$2y$10$HHYhXff5/GO/LDjYbDkX5e/uU9QKd7gSOj7TNfv/eNFLxKjGkjKF6', 'admin'),
+(5, 1, 'selim@gmail.com', 'loup', '$2y$10$PvIgyhqSBnd4jYTJbcnkzO0cN5VmJMRcgufGDri2d2GFjFsN8uCwW', 'admin'),
+(6, 1, 'kabdelfettah@gmail.com', 'Rimka', '$2y$10$UieZMBUQMoFQ.YTFVJau6.787LInMcdBHwu1ucVRGJZOgHqyDI9bO', 'admin');
 
 --
 -- Structure de la table `avis`
@@ -215,3 +216,10 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- Modification de la table users pour ajouter le rôle
+ALTER TABLE users ADD COLUMN role ENUM('client', 'admin') NOT NULL DEFAULT 'client';
+
+-- Mise à jour des utilisateurs existants (optionnel)
+UPDATE users SET role = 'admin' WHERE fk_id_profil = 1;
+UPDATE users SET role = 'client' WHERE fk_id_profil = 2;

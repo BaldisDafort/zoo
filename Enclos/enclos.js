@@ -1,30 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Vérifier si nous sommes sur la page des enclos
     const carousel = document.querySelector("#carousel");
+    if (!carousel) return; // Si le carrousel n'existe pas, on arrête l'exécution
+
     const prevButton = document.querySelector("#prev");
     const nextButton = document.querySelector("#next");
-    const indicatorsContainer = document.querySelector("#indicators");
     const items = document.querySelectorAll(".carousel-item");
     
     let currentIndex = 0;
     let isTransitioning = false;
     const totalItems = items.length;
-
-    // Créer les indicateurs
-    items.forEach((_, index) => {
-        const indicator = document.createElement('span');
-        indicator.classList.add('indicator');
-        if (index === 0) indicator.classList.add('active');
-        indicator.addEventListener('click', () => goToSlide(index));
-        indicatorsContainer.appendChild(indicator);
-    });
-
-    const indicators = document.querySelectorAll('.indicator');
-
-    function updateIndicators() {
-        indicators.forEach((indicator, index) => {
-            indicator.classList.toggle('active', index === currentIndex);
-        });
-    }
 
     function goToSlide(index) {
         if (isTransitioning) return;
@@ -46,9 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.classList.add('next');
             }
         });
-
-        // Mettre à jour les indicateurs
-        updateIndicators();
 
         // Réinitialiser l'état de transition après l'animation
         setTimeout(() => {
