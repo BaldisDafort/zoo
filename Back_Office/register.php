@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt = $pdo->prepare("INSERT INTO users (fk_id_profil, nickname, email, password) VALUES (?, ?, ?, ?)");
         $stmt->execute([$fk_id_profil, $nickname, $email, $password]);
-        $_SESSION['redirect'] = '/index.php?p=connexion';
+        $_SESSION['redirect'] = '../index.php?p=connexion';
         return;
     } catch (PDOException $e) {
         $error = "Erreur lors de l'inscription : " . $e->getMessage();
@@ -21,16 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription - Nausicaa</title>
-    <link href="../style.css" rel="stylesheet" type="text/css">
-    <link href="login.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+<div class="register-page">
     <div class="login-container">
         <h2>Inscription</h2>
         <?php if (isset($error)): ?>
@@ -53,5 +44,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
         <p class="register-link">Déjà inscrit ? <a href="../index.php?p=connexion">Connexion</a></p>
     </div>
-</body>
-</html>
+</div>

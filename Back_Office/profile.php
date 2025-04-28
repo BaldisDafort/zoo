@@ -12,16 +12,7 @@ if (!isset($_SESSION['user'])) {
 $user = $_SESSION['user'];
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Profil - Nausicaa</title>
-    <link href="../style.css" rel="stylesheet" type="text/css">
-    <link href="profile.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+<div class="profile-page">
     <div class="profile-container">
         <h1>Mon Profil</h1>
         <div class="profile-info">
@@ -42,5 +33,4 @@ $user = $_SESSION['user'];
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>

@@ -54,8 +54,15 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nausicaa</title>
-	<link href="style.css" rel="stylesheet" type="text/css">
+    <!-- CSS principal -->
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <!-- CSS des modules -->
     <link href="Back_Office/login.css" rel="stylesheet" type="text/css">
+    <link href="Back_Office/profile.css" rel="stylesheet" type="text/css">
+    <link href="Avis/avis.css" rel="stylesheet" type="text/css">
+    <link href="Enclos/enclos.css" rel="stylesheet" type="text/css">
+    <!-- Scripts -->
+    <script src="Enclos/enclos.js"></script>
 </head>
 <body>
     <?php include("./nav.html"); ?>
@@ -73,15 +80,6 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
                 break;
             case "reserver":
                 include("./Billets/billeterie.php");
-                break;
-            case "boutique":
-                include("./Liens/boutique.php");
-                break;
-            case "restauration":
-                include("./Liens/restauration.php");
-                break;
-            case "faq":
-                include("./Liens/faq.php");
                 break;
             case "profil":
                 include("./Back_Office/profile.php");
@@ -130,15 +128,6 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
                 <ul class="footer-links">
                     <li>Ouvert tous les jours</li>
                     <li>9h30 - 17h00</li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Liens utiles</h4>
-                <ul class="footer-links">
-                    <li><a href="./images/plan.jpg">Plan du zoo</a></li>
-                    <li><a href="./index.php?p=restauration">Restauration</a></li>
-                    <li><a href="./index.php?p=boutique">Boutique</a></li>
-                    <li><a href="./index.php?p=faq">FAQ</a></li>
                 </ul>
             </div>
             <div>

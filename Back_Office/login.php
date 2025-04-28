@@ -47,16 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - Nausicaa</title>
-    <link href="../style.css" rel="stylesheet" type="text/css">
-    <link href="login.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+<div class="login-page">
     <div class="login-container">
         <h1>Connexion</h1>
         <?php if (isset($_SESSION['error_message'])): ?>
@@ -87,5 +78,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <p class="register-link">Pas encore de compte ? <a href="../index.php?p=register">S'inscrire</a></p>
     </div>
-</body>
-</html>
+</div>
