@@ -1,27 +1,15 @@
 <?php
-require_once '../config.php';
-session_start();
+// Ne pas démarrer la session ici car elle est déjà démarrée dans index.php
+require_once __DIR__ . '/../config.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['user'])) {
+    header('Location: ../index.php?p=connexion');
     exit();
 }
 
-try {
-    // Récupération des informations de l'utilisateur connecté
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
-    $stmt->bindParam(':id', $_SESSION['user_id'], PDO::PARAM_INT);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user) {
-        throw new Exception("Utilisateur non trouvé.");
-    }
-} catch (PDOException $e) {
-    die("Erreur lors de la récupération des données utilisateur : " . $e->getMessage());
-} catch (Exception $e) {
-    die($e->getMessage());
-}
+// Récupérer les informations de l'utilisateur
+$user = $_SESSION['user'];
 ?>
 
 <!DOCTYPE html>
@@ -29,15 +17,30 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil</title>
+    <title>Mon Profil - Nausicaa</title>
+    <link href="../style.css" rel="stylesheet" type="text/css">
+    <link href="profile.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1>Profil de <?php print htmlspecialchars($user['nickname']); ?></h1>
-    <p><strong>Nom d'utilisateur :</strong> <?php print htmlspecialchars($user['nickname']); ?></p>
-    <p><strong>Email :</strong> <?php print htmlspecialchars($user['email']); ?></p>
-    
-    <p><a href="edit_profile.php">Modifier le profil</a></p>
-    <p><a href="logout.php">Déconnexion</a></p>
-    <p><a href="admin.php">Accéder au panneau d'administration</a></p>
+    <div class="profile-container">
+        <h1>Mon Profil</h1>
+        <div class="profile-info">
+            <div class="info-group">
+                <label>Pseudo :</label>
+                <p><?php echo htmlspecialchars($user['nickname']); ?></p>
+            </div>
+            <div class="info-group">
+                <label>Email :</label>
+                <p><?php echo htmlspecialchars($user['email']); ?></p>
+            </div>
+            <div class="info-group">
+                <label>Type de compte :</label>
+                <p><?php echo $user['fk_id_profil'] == 1 ? 'Administrateur' : 'Utilisateur'; ?></p>
+            </div>
+            <div class="profile-actions">
+                <a href="../index.php?p=edit_profile" class="cta-button">Modifier mon profil</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

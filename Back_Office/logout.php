@@ -1,5 +1,5 @@
 <?php
 session_start();
 session_destroy();
-header('Location: ../index.php?p=connexion');
+header('Location: https://' . $_SERVER['HTTP_HOST'] . '/index.php');
 exit();

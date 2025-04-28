@@ -1,5 +1,9 @@
 <?php
-require_once './config.php';
+ob_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../config.php';
 try {
     $stmt2 = $pdo->query("SELECT * FROM avis");
     $avis = $stmt2->fetchAll(PDO::FETCH_ASSOC);
@@ -13,10 +17,10 @@ try {
 
 <div class="container">
     <h2>Laissez votre avis</h2>
-    <form id="reviewForm" action="./Avis/avis_save.php" method="POST">
+    <form id="reviewForm" action="../Avis/avis_save.php" method="POST">
         <div class="form-group">
             <label for="nom">Nom :</label>
-            <input type="text" name="nom" id="nom" required>
+            <input type="text" name="nom" id="nom" value="<?php echo isset($_SESSION['user']) ? htmlspecialchars($_SESSION['user']['nickname']) : ''; ?>" readonly>
         </div>
         <div class="form-group">
             <label for="note">Note :</label>

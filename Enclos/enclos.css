@@ -8,6 +8,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -15,137 +16,156 @@ h1 {
     font-size: 2.5rem;
     color: var(--color-text-dark);
     margin: 2rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Section des biomes */
-.biomes {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
+.enclos-section {
 
-.biome-button {
-    background-color: var(--color-button);
-    color: var(--color-text-light);
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
+    /* Section du carrousel */
+    & .enclos-carousel {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+        background-color: var(--color-card-bg);
+        border-radius: 20px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
 
-.biome-button:hover {
-    background-color: var(--color-card-bg);
-    color: var(--color-text-dark);
-    transform: scale(1.05);
-}
+    /* Conteneur du carrousel */
+    & .carousel-container {
+        position: relative;
+        height: 800px;
+        overflow: hidden;
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
 
-/* Section des enclos (carrousel) */
-.enclos-carousel {
-    display: none;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: var(--color-card-bg);
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
+    & .carousel {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
 
-.enclos-carousel.visible {
-    display: block;
-}
+    & .carousel-item {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+        transform: translateX(100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-.enclos-carousel h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: var(--color-text-dark);
-    margin-bottom: 1.5rem;
-}
+    & .carousel-item.active {
+        opacity: 1;
+        transform: translateX(0);
+        z-index: 2;
+    }
 
-/* Conteneur du carrousel */
-.carousel-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-}
+    & .carousel-item.prev,
+    & .carousel-item.next {
+        opacity: 0;
+        transform: translateX(0);
+        z-index: 1;
+        display: none;
+    }
 
-.carousel {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
+    & .carousel-item video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 10px;
+    }
 
-.carousel-item {
-    min-width: 100%;
-    box-sizing: border-box;
-    padding: 1rem;
-    text-align: center;
-}
+    & .carousel-item h3 {
+        position: absolute;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        border-radius: 5px;
+        z-index: 4;
+        margin: 0;
+        text-align: center;
+    }
 
-.carousel-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 15px;
-    margin-bottom: 1rem;
-}
+    /* Contrôles du carrousel */
+    & .carousel-controls {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 3;
+    }
 
-.carousel-item h3 {
-    font-size: 1.5rem;
-    color: var(--color-text-dark);
-    margin-bottom: 0.5rem;
-}
+    & .carousel-controls button {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
 
-.carousel-item p {
-    font-size: 1rem;
-    color: var(--color-text-dark);
-}
+    & .carousel-controls button:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        transform: scale(1.1);
+    }
 
-/* Contrôles du carrousel */
-.carousel-controls {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-}
+    /* Indicateurs de position */
+    & .carousel-indicators {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 3;
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border-radius: 20px;
+        justify-content: center;
+        align-items: center;
+    }
 
-.carousel-controls button {
-    background-color: var(--color-button);
-    color: var(--color-text-light);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
+    & .indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
 
-.carousel-controls button:hover {
-    background-color: var(--color-card-bg);
-    color: var(--color-text-dark);
-    transform: scale(1.1);
-}
+    & .indicator.active {
+        background-color: white;
+        transform: scale(1.2);
+    }
 
-/* Bouton de retour */
-.back-button {
-    display: block;
-    margin: 2rem auto 0;
-    background-color: var(--color-button);
-    color: var(--color-text-light);
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
+    & .indicator:hover {
+        background-color: rgba(255, 255, 255, 0.8);
+    }
 
-.back-button:hover {
-    background-color: var(--color-card-bg);
-    color: var(--color-text-dark);
-    transform: scale(1.05);
+    /* Suppression des styles inutiles */
+    & .biomes, & .biome-button, & .back-button {
+        display: none;
+    }
+
 }

@@ -1,37 +1,109 @@
+<?php
+ob_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once 'config.php';
+
+// Gérer les redirections avant tout contenu
+if (isset($_GET['p'])) {
+    $page = $_GET['p'];
+    
+    // Gestion de la déconnexion
+    if ($page === 'logout') {
+        session_destroy();
+        header('Location: index.php');
+        exit();
+    }
+    
+    // Vérification des pages protégées
+    $protected_pages = ['avis', 'reserver'];
+    if (in_array($page, $protected_pages) && !isset($_SESSION['user'])) {
+        $_SESSION['redirect_after_login'] = 'https://' . $_SERVER['HTTP_HOST'] . '/index.php?p=' . $page;
+        header('Location: index.php?p=connexion');
+        exit();
+    }
+    
+    // Redirection si déjà connecté et essaye d'accéder à la page de connexion
+    if ($page === 'connexion' && isset($_SESSION['user'])) {
+        if (isset($_SESSION['redirect_after_login'])) {
+            $redirect = $_SESSION['redirect_after_login'];
+            unset($_SESSION['redirect_after_login']);
+            header('Location: ' . $redirect);
+            exit();
+        } else {
+            header('Location: index.php');
+            exit();
+        }
+    }
+} else {
+    $page = '';
+}
+
+// Redirection après connexion réussie
+if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
+    $redirect = $_SESSION['redirect_after_login'];
+    unset($_SESSION['redirect_after_login']);
+    header('Location: ' . $redirect);
+    exit();
+}
+?>
 <!doctype html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nausicaa</title>
-	<link href="./style.css" rel="stylesheet" type="text/css">
-    <link href="./Back_Office/login.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+    <link href="Back_Office/login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <?php include("./nav.html"); ?>
     <?php
-    if ($_GET["p"]!="") {
-        if ($_GET["p"] == "avis") {
-            include("./Avis/avis.php");
-        } elseif ($_GET["p"] == "contact") {
-            include("./Contact/contact.php");
-        } elseif ($_GET["p"] == "nosanimaux") {
-            include("./Animaux/nosanimaux.php");
-        } elseif ($_GET["p"] == "enclos") {
-            include("./Enclos/enclos.php");
-        } elseif ($_GET["p"] == "connexion") {
-            include("./Back_Office/login.php");    
-        } elseif ($_GET["p"] == "reserver") {
-            include("./Billets/billeterie.php");
-        } elseif ($_GET["p"] == "boutique") {
-            include("./Liens/boutique.php");
-        } elseif ($_GET["p"] == "restauration") {
-            include("./Liens/restauration.php");
-        } elseif ($_GET["p"] == "faq") {
-            include("./Liens/faq.php");
+    if (!empty($page)) {
+        switch($page) {
+            case "avis":
+                include("./Avis/avis.php");
+                break;
+            case "enclos":
+                include("./Enclos/enclos.php");
+                break;
+            case "register":
+                include("./Back_Office/register.php");
+                break;
+            case "reserver":
+                include("./Billets/billeterie.php");
+                break;
+            case "boutique":
+                include("./Liens/boutique.php");
+                break;
+            case "restauration":
+                include("./Liens/restauration.php");
+                break;
+            case "faq":
+                include("./Liens/faq.php");
+                break;
+            case "profil":
+                include("./Back_Office/profile.php");
+                break;
+            case "edit_profile":
+                include("./Back_Office/edit_profile.php");
+                break;
+            case "connexion":
+                include("./Back_Office/login.php");
+                break;
+            case "logout":
+                session_destroy();
+                header('Location: index.php');
+                exit();
+                break;
+            default:
+                include("./accueil.html");
         }
-    } else include("./accueil.html");
-	?>
+    } else {
+        include("./accueil.html");
+    }
+    ?>
 
     <div class="map-container">
         <iframe 

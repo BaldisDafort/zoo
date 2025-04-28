@@ -1,0 +1,93 @@
+Récapitulatif des choix d'hébergement OVH
+
+1. Offre choisie : Hébergement Perso (2.99€/mois)
+   - Raison : Parfait pour un projet de BTS
+   - Inclus :
+     * 100 Go d'espace disque
+     * 1 base de données MySQL
+     * 10 adresses email
+     * Accès FTP illimité
+     * Nom de domaine gratuit la première année
+   - Adaptation à votre projet :
+     * Espace disque suffisant pour un site PHP/MySQL
+     * Base de données MySQL incluse (compatible avec votre projet)
+     * Accès FTP pour déployer facilement votre code
+     * Emails professionnels pour la communication
+     * Nom de domaine gratuit pour la première année
+
+2. Nom de domaine : nausicaa.ovh
+   - Raison : Projet de BTS
+   - Extension .ovh choisie car :
+     * Gratuite la première année
+     * Adaptée à un projet d'études
+     * Facile à retenir
+   - Adaptation à votre projet :
+     * Coût minimal pour un projet de formation
+     * Extension appropriée pour un projet d'études
+     * Nom simple et mémorisable
+
+3. Options non prises :
+   a) CDN (Content Delivery Network)
+      - Raison : Non nécessaire pour un projet de BTS
+      - Le trafic sera limité
+      - L'hébergement de base est suffisant
+      - Adaptation à votre projet :
+        * Votre site n'aura pas de trafic important
+        * Les visiteurs seront principalement en France
+        * L'hébergement de base offre déjà de bonnes performances
+
+   b) Certificat SSL payant
+      - Raison : SSL Let's Encrypt gratuit inclus
+      - Offre la même sécurité de base
+      - Renouvellement automatique
+      - Adaptation à votre projet :
+        * Sécurité suffisante pour un projet d'études
+        * Pas de données sensibles à protéger
+        * SSL gratuit parfaitement adapté
+
+   c) Instance Web Cloud Databases
+      - Raison : Base MySQL incluse suffisante
+      - Une seule base de données nécessaire
+      - Configuration plus simple
+      - Adaptation à votre projet :
+        * Votre projet utilise MySQL
+        * Une seule base de données suffit
+        * Configuration plus simple pour un projet d'études
+
+   d) DNS Anycast
+      - Raison : Non nécessaire pour un projet de BTS
+      - Trafic limité
+      - Visiteurs principalement en France
+      - Adaptation à votre projet :
+        * Votre site n'a pas besoin d'une distribution mondiale
+        * Les performances de base sont suffisantes
+        * Économie de coûts inutiles
+
+   e) Visibilité Pro
+      - Raison : Projet d'études
+      - Coût trop élevé
+      - Fonctionnalités non essentielles
+      - Adaptation à votre projet :
+        * Pas besoin de gestion d'avis clients
+        * Pas besoin d'optimisation Google Maps
+        * Coût non justifié pour un projet de formation
+
+4. Paiement : Annuel
+   - Note : Le paiement mensuel aurait été plus adapté
+   - Engagement d'un an
+   - Possibilité d'annulation sous 14 jours
+   - Adaptation à votre projet :
+     * Engagement adapté à la durée d'un BTS
+     * Possibilité d'annulation si nécessaire
+     * Coût total raisonnable pour un projet d'études
+
+5. Prochaines étapes :
+   - Configuration de la base de données
+   - Mise en place des accès FTP
+   - Migration des fichiers
+   - Configuration du domaine
+   - Mise en place du SSL
+   - Adaptation à votre projet :
+     * Étapes simples et guidées
+     * Configuration adaptée à un projet PHP/MySQL
+     * Migration facilitée par les outils OVH 

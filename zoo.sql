@@ -29,7 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `animaux` (
   `id` int NOT NULL,
-  `name` text NOT NULL
+  `name` text NOT NULL,
+  `video_url` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

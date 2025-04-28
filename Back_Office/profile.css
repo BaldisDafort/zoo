@@ -1,0 +1,80 @@
+/* Styles pour la page de profil */
+.profile-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--color-card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h1 {
+    text-align: center;
+    color: var(--color-text-dark);
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+.profile-info {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--color-section-bg);
+    border-radius: 10px;
+}
+
+.info-group {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.info-group label {
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+
+.info-group p {
+    margin: 0;
+    padding: 0.5rem;
+    background-color: var(--color-card-bg);
+    border-radius: 5px;
+}
+
+.profile-actions {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.profile-actions .cta-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background-color: var(--color-button);
+    color: var(--color-text-light);
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.profile-actions .cta-button:hover {
+    transform: scale(1.05);
+    background-color: var(--color-navbar);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .profile-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .info-group {
+        grid-template-columns: 1fr;
+    }
+
+    .info-group label {
+        margin-bottom: 0.5rem;
+    }
+} 

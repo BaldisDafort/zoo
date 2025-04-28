@@ -1,5 +1,5 @@
-environment=development
-app.engine.version=7.4
 app.engine=php
-container.image=stable64
-http.firewall=security
+app.engine.version=8.2
+environment=production
+container.image=stable
+http.firewall=none

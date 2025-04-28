@@ -1,3 +1,10 @@
+<?php
+ob_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../config.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,7 +24,7 @@
         <h2>Réserver vos billets</h2>
         <form id="reservation-form" name="reservation-form" method="POST" target="_blank" action="billeterie_genere.php">
             <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" value="<?php echo isset($_SESSION['user']) ? htmlspecialchars($_SESSION['user']['email']) : ''; ?>" readonly>
  
             <label for="ticket-type">Type de billet</label>
             <select id="ticket-type" name="ticketType" required>

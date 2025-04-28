@@ -1,49 +1,91 @@
-    <?php
-    session_start(); //Permet d'acceder au profil du user (name, mdp etc..)
-	if ($_GET["success"]==1) require_once '../config.php';
-	elseif ($_GET["logout"]==1) require_once '../config.php';
-	else require_once './config.php';
+<?php
+ob_start(); // Démarre le buffer de sortie
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../config.php';
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $email = htmlspecialchars($_POST['email']);
-        $password = $_POST['password'];
-
-        try {
-            $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email"); //fais une requete SQL qui récupère tous les champs que le user vient d'entrer. Cette requete permet d'empecher les injections SQL
-            $stmt->bindParam(':email', $email); // permet d'associer le :email de la requete SQL avec le mail $email
-            $stmt->execute();
-            $user = $stmt->fetch(PDO::FETCH_ASSOC); // fetch permet de récupérer le résultat de la requete et de le save dans le tableau user
-
-            if (password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['nickname'] = $user['nickname'];
-                $_SESSION['profil'] = $user['fk_id_profil'];
-                header('Location: ./Back_Office/profile.php'); //redirige vers la page profil
-                exit();
-            } else {
-                $error = "Identifiants incorrects."; // Affiche au user le message d'erreur ligne 54
-            }
-        } catch (PDOException $e) { //Affiche les classes d'erreur
-            die("Erreur lors de la connexion : " . $e->getMessage());
-        }
+// Si l'utilisateur est déjà connecté, rediriger vers la page demandée ou l'accueil
+if (isset($_SESSION['user'])) {
+    if (isset($_SESSION['redirect_after_login'])) {
+        $redirect = $_SESSION['redirect_after_login'];
+        unset($_SESSION['redirect_after_login']);
+        header('Location: ' . $redirect);
+        exit();
+    } else {
+        header('Location: ../index.php');
+        exit();
     }
-    ?>
+}
 
+// Traitement du formulaire de connexion
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user'] = $user;
+            if (isset($_SESSION['redirect_after_login'])) {
+                $redirect = $_SESSION['redirect_after_login'];
+                unset($_SESSION['redirect_after_login']);
+                header('Location: ' . $redirect);
+            } else {
+                header('Location: ../index.php?p=profil');
+            }
+            exit();
+        } else {
+            $error = "Email ou mot de passe incorrect";
+        }
+    } catch (PDOException $e) {
+        $error = "Erreur de connexion : " . $e->getMessage();
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Nausicaa</title>
+    <link href="../style.css" rel="stylesheet" type="text/css">
+    <link href="login.css" rel="stylesheet" type="text/css">
+</head>
+<body>
     <div class="login-container">
-        <h2>Connexion</h2>
-        <?php if (isset($error)): ?>
-            <p class="error"><?php echo $error; ?></p>
+        <h1>Connexion</h1>
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="error-message">
+                <?php 
+                echo $_SESSION['error_message'];
+                unset($_SESSION['error_message']);
+                ?>
+            </div>
         <?php endif; ?>
-        <form method="POST" action="" class="login-form">
+        <?php if (isset($error)): ?>
+            <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+        
+        <form method="POST" action="">
             <div class="form-group">
                 <label for="email">Email :</label>
                 <input type="email" id="email" name="email" required>
             </div>
+            
             <div class="form-group">
                 <label for="password">Mot de passe :</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="login-button">Se connecter</button>
+            
+            <button type="submit" class="cta-button">Se connecter</button>
         </form>
-        <p class="register-link">Pas encore inscrit ? <a href="./Back_Office/register.php">Inscription</a></p>
+        
+        <p class="register-link">Pas encore de compte ? <a href="../index.php?p=register">S'inscrire</a></p>
     </div>
+</body>
+</html>

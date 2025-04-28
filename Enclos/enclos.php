@@ -6,49 +6,108 @@
     <title>Enclos</title>
     <link href="../style.css" rel="stylesheet" type="text/css">
     <link href="enclos.css" rel="stylesheet" type="text/css">
-	<script src="script.js"></script>
+    <script src="enclos.js"></script>
 </head>
 <body>
-    <h1>Parc Animalier - Les Biomes et leurs Enclos</h1>
-    <div class="biomes">
-        <button class="biome-button" data-biome="bois-des-pins">Le Bois des Pins</button>
-        <button class="biome-button" data-biome="belvedere">Le Belvédère</button>
-        <button class="biome-button" data-biome="vallon-cascades">Le Vallon des Cascades</button>
-    </div>
-
-    <div class="enclos-carousel hidden" id="bois-des-pins">
-        <h2>Enclos du Bois des Pins</h2>
+    <section class="enclos-section">
+    <h1>Parc Animalier - Les Animaux Marins</h1>
+    <div class="enclos-carousel">
         <div class="carousel-container">
             <div class="carousel" id="carousel">
                 <div class="carousel-item">
-                    <img src="cerfmacaque.png" alt="Cerf et Macaque Crabe">
-                    <h3>Enclos du Cerf et du Macaque Crabe</h3>
-                    <p>Animaux : Cerf et Macaque Crabe.</p>
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/tortue-poissons.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Tortues et Poissons</h3>
                 </div>
                 <div class="carousel-item">
-                    <img src="vautour.jpg" alt="Vautour">
-                    <h3>Enclos du Vautour</h3>
-                    <p>Animaux : Vautour.</p>
-                </div>
-				<div class="carousel-item">
-                    <img src="nigaultantilope.png" alt="Nilgaut et Antilope">
-                    <h3>Enclos du Nilgaut et de l'Antilope</h3>
-                    <p>Animaux : Nilgaut et Antilope.</p>
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/requins.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Requins</h3>
                 </div>
                 <div class="carousel-item">
-                    <img src="loup.jpg" alt="Loup d'Europe">
-                    <h3>Enclos du Loup d'Europe</h3>
-                    <p>Animaux : Loup d'Europe.</p>
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/raie.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Raies</h3>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/poisson-styledansnemo.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Poissons Clowns</h3>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/poisson-corail.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Poissons de Corail</h3>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/otarie-trop-mingonne.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Otarie</h3>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/meduse-champignon-bleu.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Méduse Champignon Bleu</h3>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/manchot-swim.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Manchots</h3>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/des-nemos.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Poissons Clowns</h3>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/crabe-trop-mignon.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Crabe</h3>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/banc-poissons.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Banc de Poissons</h3>
+                </div>
+                <div class="carousel-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="../Assets/aquanimaux/videos/corail.mp4" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    <h3>Corail</h3>
                 </div>
             </div>
+            <div class="carousel-controls">
+                <button id="prev">&#10094;</button>
+                <button id="next">&#10095;</button>
+            </div>
+            <div class="carousel-indicators" id="indicators">
+                <!-- Les indicateurs seront générés dynamiquement par JavaScript -->
+            </div>
         </div>
-        <div class="carousel-controls">
-            <button id="prev">&#10094;</button>
-            <button id="next">&#10095;</button>
-        </div>
-        <button class="back-button">Retour aux Biomes</button>
     </div>
-
-   
+    </section>
 </body>
 </html>

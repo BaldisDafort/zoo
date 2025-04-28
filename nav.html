@@ -2,17 +2,28 @@
         <div class="nav-container">
             <div class="logo">
                 <a href="index.php">
-                    <img src="Assets\aquanimaux\logo\logo.jpg" alt="Logo">
+                    <img src="Assets/aquanimaux/logo/logoV2.png" alt="Logo">
                 </a>
             </div>
             <div class="nav-links">
-                <a href="index.php?p=nosanimaux" class="underline">Nos Animaux</a>
                 <a href="index.php#tarifs" class="underline">Tarifs</a>
-                <a href="index.php?p=contact" class="underline">Contact</a>
                 <a href="index.php?p=enclos" class="underline">Nos enclos</a>
                 <a href="index.php?p=avis" class="underline">Nos Avis</a>
                 <a href="index.php?p=reserver" class="cta-button" id="reserver">Réserver</a>
-                <a href="index.php?p=connexion" class="cta-button" id="connexion">Connexion</a>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <div class="user-menu">
+                        <button class="user-button">
+                            <?php echo htmlspecialchars($_SESSION['user']['nickname']); ?>
+                            <span class="arrow">▼</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="index.php?p=profil">Mon Profil</a>
+                            <a href="index.php?p=logout">Déconnexion</a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <a href="index.php?p=connexion" class="cta-button" id="connexion">Connexion</a>
+                <?php endif; ?>
             </div>
         </div>
     </nav>

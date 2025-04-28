@@ -1,19 +1,22 @@
 <?php
-require_once '../config.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nickname = htmlspecialchars($_POST['nickname']);
     $email = htmlspecialchars($_POST['email']);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $fk_id_profil = 2; //ca permettra de faire en sorte que les nouveau inscrits seront en compte client et non admin
+    $fk_id_profil = 2; // Les nouveaux inscrits seront en compte client
 
     try {
         $stmt = $pdo->prepare("INSERT INTO users (fk_id_profil, nickname, email, password) VALUES (?, ?, ?, ?)");
-        $stmt->execute([1,$nickname, $email, $password]);
-        header('Location: ../index.php?p=connexion');
-        exit();
+        $stmt->execute([$fk_id_profil, $nickname, $email, $password]);
+        $_SESSION['redirect'] = '/index.php?p=connexion';
+        return;
     } catch (PDOException $e) {
-        die("Erreur lors de l'inscription : " . $e->getMessage());
+        $error = "Erreur lors de l'inscription : " . $e->getMessage();
     }
 }
 ?>
@@ -23,25 +26,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
+    <title>Inscription - Nausicaa</title>
+    <link href="../style.css" rel="stylesheet" type="text/css">
+    <link href="login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1>Inscription</h1>
-    <form method="POST"> <!DOCTYPE html> <!--Envoie le formulaire avec la method POST ligne 4 -->
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        
-    </body>
-    </html>
-        <input type="text" name="nickname" placeholder="Pseudonyme" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Mot de passe" required>
-        <button type="submit">S'inscrire</button>
-    </form>
+    <div class="login-container">
+        <h2>Inscription</h2>
+        <?php if (isset($error)): ?>
+            <p class="error"><?php echo $error; ?></p>
+        <?php endif; ?>
+        <form method="POST" class="login-form">
+            <div class="form-group">
+                <label for="nickname">Pseudonyme :</label>
+                <input type="text" id="nickname" name="nickname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-button">S'inscrire</button>
+        </form>
+        <p class="register-link">Déjà inscrit ? <a href="../index.php?p=connexion">Connexion</a></p>
+    </div>
 </body>
 </html>
