@@ -3,9 +3,14 @@ require_once __DIR__ . '/../config.php';
 
 // Récupération des informations des enclos
 try {
-    $stmt = $pdo->query("SELECT * FROM enclos");
+    // Forcer la récupération des données à jour
+    $stmt = $pdo->query("SELECT * FROM enclos ORDER BY id");
     $enclos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Debug pour vérifier les données
+    error_log("Données des enclos : " . print_r($enclos, true));
 } catch (PDOException $e) {
+    error_log("Erreur lors de la récupération des enclos : " . $e->getMessage());
     die("Erreur lors de la récupération des enclos : " . $e->getMessage());
 }
 ?>
@@ -26,7 +31,9 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 1; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            // Debug pour vérifier le statut
+                            error_log("Statut de l'enclos 1 : " . $enclo['Statut']);
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -42,7 +49,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 2; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -58,7 +65,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 3; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -74,7 +81,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 4; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -90,7 +97,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 5; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -106,7 +113,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 6; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -122,7 +129,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 7; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -138,7 +145,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 8; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -154,7 +161,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 9; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -170,7 +177,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 10; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -186,7 +193,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 11; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>
@@ -202,7 +209,7 @@ try {
                         $enclo = array_filter($enclos, function($e) { return $e['id'] == 12; });
                         $enclo = reset($enclo);
                         if ($enclo) {
-                            echo $enclo['ouvert'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
+                            echo $enclo['Statut'] ? '<span class="status-open">Enclos ouvert</span>' : '<span class="status-closed">Enclos fermé</span>';
                         }
                         ?>
                     </div>

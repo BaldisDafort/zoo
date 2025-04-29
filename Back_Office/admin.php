@@ -1,60 +1,294 @@
 <?php
-require_once '../config.php';
-require_once 'functions.php';
+// Ne pas démarrer la session ici car elle est déjà démarrée dans index.php
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/functions.php';
 
-// Vérifier si l'utilisateur est admin
-requireRole('admin');
+// Configuration du logging
+$log_file = __DIR__ . '/../logs/debug.log';
+if (!file_exists(dirname($log_file))) {
+    mkdir(dirname($log_file), 0777, true);
+}
+
+function write_log($message) {
+    global $log_file;
+    $date = date('Y-m-d H:i:s');
+    file_put_contents($log_file, "[$date] $message\n", FILE_APPEND);
+}
+
+// Activer l'affichage des erreurs pour le débogage
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+write_log("Début du chargement de admin.php");
+
+// Test simple pour vérifier si le fichier est chargé
+echo "<!-- Test de chargement de admin.php -->";
 
 // Vérifier si l'utilisateur est connecté et est admin
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-    header('Location: ../index.php');
+if (!isset($_SESSION['user'])) {
+    write_log("Utilisateur non connecté");
+    header('Location: ../index.php?p=connexion');
     exit();
 }
 
+write_log("Utilisateur connecté : " . $_SESSION['user']['email']);
+
+if ($_SESSION['user']['role'] !== 'admin') {
+    write_log("Utilisateur non admin : " . $_SESSION['user']['role']);
+    header('Location: ../index.php?p=profil');
+    exit();
+}
+
+write_log("Utilisateur est admin");
+
+// Traitement des modifications
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    write_log("Traitement d'une requête POST");
+    if (isset($_POST['action'])) {
+        write_log("Action : " . $_POST['action']);
+        switch ($_POST['action']) {
+            case 'update_user':
+                try {
+                    $stmt = $pdo->prepare("UPDATE users SET role = ? WHERE id = ?");
+                    $stmt->execute([$_POST['role'], $_POST['user_id']]);
+                    $_SESSION['success_message'] = "Utilisateur mis à jour avec succès";
+                    write_log("Utilisateur mis à jour avec succès");
+                } catch (PDOException $e) {
+                    write_log("Erreur mise à jour utilisateur: " . $e->getMessage());
+                    $_SESSION['error_message'] = "Erreur lors de la mise à jour de l'utilisateur : " . $e->getMessage();
+                }
+                break;
+
+            case 'delete_user':
+                try {
+                    // Ne pas permettre la suppression de son propre compte
+                    if ($_POST['user_id'] == $_SESSION['user']['id']) {
+                        throw new Exception("Vous ne pouvez pas supprimer votre propre compte");
+                    }
+                    
+                    $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
+                    $stmt->execute([$_POST['user_id']]);
+                    $_SESSION['success_message'] = "Utilisateur supprimé avec succès";
+                    write_log("Utilisateur supprimé avec succès");
+                } catch (Exception $e) {
+                    write_log("Erreur suppression utilisateur: " . $e->getMessage());
+                    $_SESSION['error_message'] = "Erreur lors de la suppression de l'utilisateur : " . $e->getMessage();
+                }
+                break;
+
+            case 'update_enclos':
+                try {
+                    $stmt = $pdo->prepare("UPDATE enclos SET h_deb_repas = ?, h_fin_repas = ?, Statut = ? WHERE id = ?");
+                    $stmt->execute([$_POST['h_deb_repas'], $_POST['h_fin_repas'], $_POST['Statut'], $_POST['enclos_id']]);
+                    $_SESSION['success_message'] = "Enclos mis à jour avec succès";
+                    write_log("Enclos mis à jour avec succès");
+                } catch (PDOException $e) {
+                    write_log("Erreur mise à jour enclos: " . $e->getMessage());
+                    $_SESSION['error_message'] = "Erreur lors de la mise à jour de l'enclos : " . $e->getMessage();
+                }
+                break;
+        }
+    }
+}
+
+// Récupération des données
 try {
-    $stmt = $pdo->query("SELECT * FROM users");
+    write_log("Tentative de récupération des utilisateurs");
+    $stmt = $pdo->query("SELECT * FROM users ORDER BY id");
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    write_log("Nombre d'utilisateurs récupérés : " . count($users));
 } catch (PDOException $e) {
-    die("Erreur lors de la récupération des utilisateurs : " . $e->getMessage());
+    write_log("Erreur récupération utilisateurs: " . $e->getMessage());
+    $_SESSION['error_message'] = "Erreur lors de la récupération des utilisateurs : " . $e->getMessage();
 }
+
 try {
-    $stmt2 = $pdo->query("SELECT * FROM enclos");
-    $enclos = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    write_log("Tentative de récupération des enclos");
+    $stmt = $pdo->query("SELECT * FROM enclos ORDER BY id");
+    $enclos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    write_log("Nombre d'enclos récupérés : " . count($enclos));
 } catch (PDOException $e) {
-    die("Erreur lors de la récupération des enclos : " . $e->getMessage());
+    write_log("Erreur récupération enclos: " . $e->getMessage());
+    $_SESSION['error_message'] = "Erreur lors de la récupération des enclos : " . $e->getMessage();
 }
+
+write_log("Fin du chargement de admin.php");
 ?>
 
 <div class="admin-page">
     <div class="admin-container">
         <h1>Panneau d'administration</h1>
-        
-        <div class="admin-actions">
-            <a href="../index.php?p=liste_users" class="admin-button">
-                <h3>Gestion des utilisateurs</h3>
-                <p>Gérer les comptes utilisateurs</p>
-            </a>
-            
-            <a href="../index.php?p=edit_enclos" class="admin-button">
-                <h3>Gestion des enclos</h3>
-                <p>Modifier les informations des enclos</p>
-            </a>
-        </div>
+
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <div class="success-message"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="error-message"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
+        <?php endif; ?>
+
+        <section class="admin-section">
+            <h2>Gestion des utilisateurs</h2>
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Pseudo</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (isset($users) && !empty($users)): ?>
+                            <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td><?php echo $user['id']; ?></td>
+                                <td class="readonly-cell"><?php echo htmlspecialchars($user['nickname']); ?></td>
+                                <td class="readonly-cell"><?php echo htmlspecialchars($user['email']); ?></td>
+                                <td>
+                                    <form method="POST" class="inline-form">
+                                        <input type="hidden" name="action" value="update_user">
+                                        <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                        <select name="role" class="form-select">
+                                            <option value="client" <?php echo $user['role'] === 'client' ? 'selected' : ''; ?>>Client</option>
+                                            <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Admin</option>
+                                        </select>
+                                        <button type="submit" class="btn-save">Enregistrer</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <?php if ($user['id'] != $_SESSION['user']['id']): ?>
+                                    <form method="POST" class="inline-form" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                                        <input type="hidden" name="action" value="delete_user">
+                                        <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                        <button type="submit" class="btn-delete">Supprimer</button>
+                                    </form>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="5">Aucun utilisateur trouvé</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="admin-section">
+            <h2>Gestion des enclos</h2>
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Animal</th>
+                            <th>Heure début repas</th>
+                            <th>Heure fin repas</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        try {
+                            // Récupération des enclos avec leurs animaux
+                            $stmt = $pdo->query("SELECT e.*, a.name as animal_name 
+                                               FROM enclos e 
+                                               LEFT JOIN animaux a ON e.id = a.id 
+                                               ORDER BY e.id");
+                            $enclos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            
+                            if (!empty($enclos)) {
+                                foreach ($enclos as $enclos_item) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $enclos_item['id']; ?></td>
+                                        <td><?php echo htmlspecialchars($enclos_item['animal_name']); ?></td>
+                                        <td>
+                                            <form method="POST" class="inline-form">
+                                                <input type="hidden" name="action" value="update_enclos">
+                                                <input type="hidden" name="enclos_id" value="<?php echo $enclos_item['id']; ?>">
+                                                <input type="text" 
+                                                       name="h_deb_repas" 
+                                                       value="<?php echo htmlspecialchars($enclos_item['h_deb_repas']); ?>" 
+                                                       class="form-input" 
+                                                       placeholder="ex: 12h30">
+                                        </td>
+                                        <td>
+                                            <input type="text" 
+                                                   name="h_fin_repas" 
+                                                   value="<?php echo htmlspecialchars($enclos_item['h_fin_repas']); ?>" 
+                                                   class="form-input" 
+                                                   placeholder="ex: 14h00">
+                                        </td>
+                                        <td>
+                                            <select name="Statut" class="form-select">
+                                                <option value="1" <?php echo ($enclos_item['Statut'] == 1) ? 'selected' : ''; ?>>Ouvert</option>
+                                                <option value="0" <?php echo ($enclos_item['Statut'] == 0) ? 'selected' : ''; ?>>Fermé</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn-save">Enregistrer</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                echo "<tr><td colspan='6'>Aucun enclos trouvé</td></tr>";
+                            }
+                        } catch (PDOException $e) {
+                            write_log("Erreur récupération enclos: " . $e->getMessage());
+                            echo "<tr><td colspan='6'>Erreur lors de la récupération des enclos</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
 </div>
 
 <?php
-function get_animaux_by_enclos($fk_id_enclos,$pdo) {
-	$stmt = $pdo->query("SELECT name FROM animaux WHERE id='$fk_id_enclos' order by name");
-    $animaux = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$liste_animaux='';
-	foreach ($animaux as $animal) {
-		if ($liste_animaux=="") {
-			$liste_animaux=$animal['name'];
-		} else {
-			$liste_animaux.=" - ".$animal['name'];
-		}
-	}
-	return $liste_animaux;
+// Traitement des modifications
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_enclos') {
+    try {
+        // Log des données reçues
+        write_log("Données reçues pour mise à jour : " . print_r($_POST, true));
+        
+        // Vérifier que le statut est bien reçu
+        $statut = isset($_POST['Statut']) ? (int)$_POST['Statut'] : 0;
+        write_log("Valeur du statut : " . $statut);
+        
+        $stmt = $pdo->prepare("UPDATE enclos SET h_deb_repas = ?, h_fin_repas = ?, Statut = ? WHERE id = ?");
+        $result = $stmt->execute([
+            $_POST['h_deb_repas'],
+            $_POST['h_fin_repas'],
+            $statut,
+            $_POST['enclos_id']
+        ]);
+        
+        // Vérifier si la mise à jour a réussi
+        if ($result) {
+            write_log("Mise à jour réussie pour l'enclos " . $_POST['enclos_id']);
+            $_SESSION['success_message'] = "Enclos mis à jour avec succès";
+        } else {
+            write_log("Échec de la mise à jour pour l'enclos " . $_POST['enclos_id']);
+            $_SESSION['error_message'] = "Erreur lors de la mise à jour de l'enclos";
+        }
+        
+        // Redirection vers la page admin
+        header('Location: ../index.php?p=admin');
+        exit();
+    } catch (PDOException $e) {
+        write_log("Erreur mise à jour enclos: " . $e->getMessage());
+        $_SESSION['error_message'] = "Erreur lors de la mise à jour de l'enclos : " . $e->getMessage();
+    }
 }
 ?>

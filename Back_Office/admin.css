@@ -5,7 +5,6 @@
 .admin-container {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: var(--color-card-bg);
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -13,22 +12,25 @@
 
 .admin-container h1 {
     text-align: center;
-    color: var(--color-text-dark);
+    color: var(--color-text);
     margin-bottom: 2rem;
+    font-size: 2.5rem;
 }
 
 .admin-container h2 {
-    color: var(--color-text-dark);
+    color: var(--color-text);
     margin: 2rem 0 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--color-button);
+    border-bottom: 2px solid var(--color-primary);
+    font-size: 1.8rem;
 }
 
 .admin-section {
-    background-color: white;
+    background-color: var(--color-section-bg);
     padding: 1.5rem;
     border-radius: 10px;
     margin-bottom: 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .admin-list ul {
@@ -38,7 +40,7 @@
 
 .admin-list li {
     padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .admin-list li:last-child {
@@ -46,7 +48,7 @@
 }
 
 .admin-list strong {
-    color: var(--color-navbar);
+    color: var(--color-primary);
 }
 
 .admin-actions {
@@ -85,49 +87,123 @@
 .admin-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 2rem 0;
-    background-color: white;
+    background-color: var(--color-section-bg);
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .admin-table th,
 .admin-table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .admin-table th {
-    background-color: var(--color-navbar);
+    background-color: var(--color-primary);
     color: var(--color-text-light);
     font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.admin-table tr:nth-child(even) {
+    background-color: var(--color-section-bg-alt);
 }
 
 .admin-table tr:hover {
-    background-color: #f5f5f5;
+    background-color: var(--color-hover);
 }
 
 .role-form select {
     padding: 0.5rem;
     border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: white;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-section-bg);
     cursor: pointer;
 }
 
 .success-message {
-    background-color: #d4edda;
-    color: #155724;
+    background-color: var(--color-success);
+    color: var(--color-text-light);
     padding: 1rem;
     border-radius: 5px;
     margin-bottom: 1rem;
+    border: 1px solid var(--color-success-border);
 }
 
 .error-message {
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: var(--color-error);
+    color: var(--color-text-light);
     padding: 1rem;
     border-radius: 5px;
     margin-bottom: 1rem;
+    border: 1px solid var(--color-error-border);
+}
+
+.table-responsive {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s;
+    background-color: var(--color-section-bg);
+    color: var(--color-text);
+}
+
+.form-input:focus,
+.form-select:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+.form-select {
+    cursor: pointer;
+}
+
+.btn-save {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-save:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.btn-delete {
+    background-color: var(--color-error);
+    color: var(--color-text-light);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-delete:hover {
+    background-color: var(--color-error-dark);
+}
+
+.inline-form {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.readonly-cell {
+    color: var(--color-text);
+    font-weight: 500;
 } 

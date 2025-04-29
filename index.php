@@ -51,6 +51,15 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
 <!doctype html>
 <html lang="fr">
 <head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K6FCSHGKS0"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-K6FCSHGKS0');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nausicaa</title>
