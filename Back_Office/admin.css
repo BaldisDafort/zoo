@@ -8,29 +8,30 @@
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background-color: var(--color-navbar) !important;
 }
 
 .admin-container h1 {
     text-align: center;
-    color: var(--color-text);
+    color: var(--color-text-dark) !important;
     margin-bottom: 2rem;
     font-size: 2.5rem;
 }
 
 .admin-container h2 {
-    color: var(--color-text);
+    color: var(--color-text-dark) !important;
     margin: 2rem 0 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-button) !important;
     font-size: 1.8rem;
 }
 
 .admin-section {
-    background-color: var(--color-section-bg);
     padding: 1.5rem;
     border-radius: 10px;
     margin-bottom: 2rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: var(--color-card-bg) !important;
 }
 
 .admin-list ul {
@@ -87,7 +88,7 @@
 .admin-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--color-section-bg);
+    background-color: white !important;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -97,23 +98,27 @@
 .admin-table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid #e0e0e0 !important;
 }
 
 .admin-table th {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
+    background-color: var(--color-navbar) !important;
+    color: var(--color-text-light) !important;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.9rem;
 }
 
+.admin-table tr:nth-child(odd) {
+    background-color: #f5f5f5 !important;
+}
+
 .admin-table tr:nth-child(even) {
-    background-color: var(--color-section-bg-alt);
+    background-color: white !important;
 }
 
 .admin-table tr:hover {
-    background-color: var(--color-hover);
+    background-color: #e8f4f8 !important;
 }
 
 .role-form select {
@@ -125,21 +130,21 @@
 }
 
 .success-message {
-    background-color: var(--color-success);
-    color: var(--color-text-light);
+    background-color: #4CAF50 !important;
+    color: white !important;
     padding: 1rem;
     border-radius: 5px;
     margin-bottom: 1rem;
-    border: 1px solid var(--color-success-border);
+    border: 1px solid #45a049 !important;
 }
 
 .error-message {
-    background-color: var(--color-error);
-    color: var(--color-text-light);
+    background-color: #f44336 !important;
+    color: white !important;
     padding: 1rem;
     border-radius: 5px;
     margin-bottom: 1rem;
-    border: 1px solid var(--color-error-border);
+    border: 1px solid #da190b !important;
 }
 
 .table-responsive {
@@ -151,17 +156,17 @@
 .form-select {
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid var(--color-border);
+    border: 1px solid #e0e0e0 !important;
     border-radius: 5px;
     font-size: 0.9rem;
     transition: border-color 0.3s;
-    background-color: var(--color-section-bg);
-    color: var(--color-text);
+    background-color: white !important;
+    color: var(--color-text-dark) !important;
 }
 
 .form-input:focus,
 .form-select:focus {
-    border-color: var(--color-primary);
+    border-color: var(--color-button) !important;
     outline: none;
 }
 
@@ -170,8 +175,8 @@
 }
 
 .btn-save {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
+    background-color: #4CAF50 !important;
+    color: white !important;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
@@ -180,12 +185,12 @@
 }
 
 .btn-save:hover {
-    background-color: var(--color-primary-dark);
+    background-color: #45a049 !important;
 }
 
 .btn-delete {
-    background-color: var(--color-error);
-    color: var(--color-text-light);
+    background-color: #f44336 !important;
+    color: white !important;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
@@ -194,7 +199,7 @@
 }
 
 .btn-delete:hover {
-    background-color: var(--color-error-dark);
+    background-color: #da190b !important;
 }
 
 .inline-form {
@@ -204,6 +209,6 @@
 }
 
 .readonly-cell {
-    color: var(--color-text);
+    color: var(--color-text-dark) !important;
     font-weight: 500;
 } 
