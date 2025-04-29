@@ -92,40 +92,41 @@
 
 .admin-form-select {
     cursor: pointer;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--admin-border);
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s;
+    background-color: var(--admin-bg-light);
+    color: var(--color-text-dark);
+}
+
+.admin-btn-save,
+.admin-btn-delete {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
 }
 
 .admin-btn-save {
     background-color: var(--admin-success);
     color: var(--color-text-light);
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.admin-btn-save:hover {
-    background-color: var(--admin-success-hover);
 }
 
 .admin-btn-delete {
     background-color: var(--admin-danger);
     color: var(--color-text-light);
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.admin-btn-delete:hover {
-    background-color: var(--admin-danger-hover);
 }
 
 .admin-inline-form {
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .admin-readonly-cell {
