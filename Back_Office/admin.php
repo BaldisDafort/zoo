@@ -149,20 +149,15 @@ write_log("Fin du chargement de admin.php");
                                 <td class="readonly-cell"><?php echo htmlspecialchars($user['nickname']); ?></td>
                                 <td class="readonly-cell"><?php echo htmlspecialchars($user['email']); ?></td>
                                 <td>
-                                    <form method="POST" class="admin-inline-form">
-                                        <input type="hidden" name="action" value="update_user">
-                                        <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
-                                        <select name="role" class="admin-form-select">
-                                            <option value="client" <?php echo $user['role'] === 'client' ? 'selected' : ''; ?>>Client</option>
-                                            <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Admin</option>
-                                        </select>
-                                    </form>
+                                    <select name="role" class="admin-form-select" form="update-form-<?php echo $user['id']; ?>">
+                                        <option value="client" <?php echo $user['role'] === 'client' ? 'selected' : ''; ?>>Client</option>
+                                        <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Admin</option>
+                                    </select>
                                 </td>
                                 <td>
-                                    <form method="POST" class="admin-inline-form">
+                                    <form id="update-form-<?php echo $user['id']; ?>" method="POST" class="admin-inline-form">
                                         <input type="hidden" name="action" value="update_user">
                                         <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
-                                        <input type="hidden" name="role" value="<?php echo $user['role']; ?>">
                                         <button type="submit" class="admin-btn-save">Enregistrer</button>
                                         <?php if ($user['id'] != $_SESSION['user']['id']): ?>
                                         <button type="button" class="admin-btn-delete" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) { document.getElementById('delete-form-<?php echo $user['id']; ?>').submit(); }">Supprimer</button>
