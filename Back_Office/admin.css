@@ -1,3 +1,5 @@
+/* Ce fichier est maintenant vide car tous les styles ont été déplacés dans style.css */ 
+
 .admin-page {
     padding: 2rem;
 }
@@ -8,87 +10,36 @@
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    background-color: var(--color-navbar) !important;
+    background-color: var(--admin-bg-light);
 }
 
 .admin-container h1 {
     text-align: center;
-    color: var(--color-text-dark) !important;
+    color: var(--color-text-dark);
     margin-bottom: 2rem;
     font-size: 2.5rem;
 }
 
 .admin-container h2 {
-    color: var(--color-text-dark) !important;
+    color: var(--color-text-dark);
     margin: 2rem 0 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--color-button) !important;
+    border-bottom: 2px solid var(--color-button);
     font-size: 1.8rem;
 }
 
 .admin-section {
+    background-color: var(--color-section-bg);
     padding: 1.5rem;
     border-radius: 10px;
     margin-bottom: 2rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    background-color: var(--color-card-bg) !important;
 }
 
-.admin-list ul {
-    list-style: none;
-    padding: 0;
-}
-
-.admin-list li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.admin-list li:last-child {
-    border-bottom: none;
-}
-
-.admin-list strong {
-    color: var(--color-primary);
-}
-
-.admin-actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 1rem;
-}
-
-.admin-button {
-    display: block;
-    background-color: var(--color-button);
-    color: var(--color-text-light);
-    padding: 2rem;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: transform 0.3s, background-color 0.3s;
-}
-
-.admin-button:hover {
-    transform: translateY(-5px);
-    background-color: var(--color-section-bg);
-}
-
-.admin-button h3 {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-}
-
-.admin-button p {
-    opacity: 0.9;
-    font-size: 1rem;
-}
-
-/* Styles pour la table des utilisateurs */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: white !important;
+    background-color: var(--admin-bg-light);
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -98,85 +49,54 @@
 .admin-table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #e0e0e0 !important;
+    border-bottom: 1px solid var(--admin-border);
 }
 
 .admin-table th {
-    background-color: var(--color-navbar) !important;
-    color: var(--color-text-light) !important;
+    background-color: var(--color-navbar);
+    color: var(--color-text-light);
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.9rem;
 }
 
 .admin-table tr:nth-child(odd) {
-    background-color: #f5f5f5 !important;
+    background-color: var(--admin-bg-alt);
 }
 
 .admin-table tr:nth-child(even) {
-    background-color: white !important;
+    background-color: var(--admin-bg-light);
 }
 
 .admin-table tr:hover {
-    background-color: #e8f4f8 !important;
+    background-color: var(--admin-hover);
 }
 
-.role-form select {
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-section-bg);
-    cursor: pointer;
-}
-
-.success-message {
-    background-color: #4CAF50 !important;
-    color: white !important;
-    padding: 1rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    border: 1px solid #45a049 !important;
-}
-
-.error-message {
-    background-color: #f44336 !important;
-    color: white !important;
-    padding: 1rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    border: 1px solid #da190b !important;
-}
-
-.table-responsive {
-    overflow-x: auto;
-    margin: 1rem 0;
-}
-
-.form-input,
-.form-select {
+.admin-form-input,
+.admin-form-select {
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid #e0e0e0 !important;
+    border: 1px solid var(--admin-border);
     border-radius: 5px;
     font-size: 0.9rem;
     transition: border-color 0.3s;
-    background-color: white !important;
-    color: var(--color-text-dark) !important;
+    background-color: var(--admin-bg-light);
+    color: var(--color-text-dark);
 }
 
-.form-input:focus,
-.form-select:focus {
-    border-color: var(--color-button) !important;
+.admin-form-input:focus,
+.admin-form-select:focus {
+    border-color: var(--color-button);
     outline: none;
 }
 
-.form-select {
+.admin-form-select {
     cursor: pointer;
 }
 
-.btn-save {
-    background-color: #4CAF50 !important;
-    color: white !important;
+.admin-btn-save {
+    background-color: var(--admin-success);
+    color: var(--color-text-light);
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
@@ -184,13 +104,13 @@
     transition: background-color 0.3s;
 }
 
-.btn-save:hover {
-    background-color: #45a049 !important;
+.admin-btn-save:hover {
+    background-color: var(--admin-success-hover);
 }
 
-.btn-delete {
-    background-color: #f44336 !important;
-    color: white !important;
+.admin-btn-delete {
+    background-color: var(--admin-danger);
+    color: var(--color-text-light);
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
@@ -198,17 +118,40 @@
     transition: background-color 0.3s;
 }
 
-.btn-delete:hover {
-    background-color: #da190b !important;
+.admin-btn-delete:hover {
+    background-color: var(--admin-danger-hover);
 }
 
-.inline-form {
+.admin-inline-form {
     display: flex;
     gap: 0.5rem;
     align-items: center;
 }
 
-.readonly-cell {
-    color: var(--color-text-dark) !important;
+.admin-readonly-cell {
+    color: var(--color-text-dark);
     font-weight: 500;
+}
+
+.admin-success-message {
+    background-color: var(--admin-success);
+    color: var(--color-text-light);
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--admin-success-hover);
+}
+
+.admin-error-message {
+    background-color: var(--admin-danger);
+    color: var(--color-text-light);
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--admin-danger-hover);
+}
+
+.admin-table-responsive {
+    overflow-x: auto;
+    margin: 1rem 0;
 } 

@@ -121,16 +121,16 @@ write_log("Fin du chargement de admin.php");
         <h1>Panneau d'administration</h1>
 
         <?php if (isset($_SESSION['success_message'])): ?>
-            <div class="success-message"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
+            <div class="admin-success-message"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['error_message'])): ?>
-            <div class="error-message"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
+            <div class="admin-error-message"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>
         <?php endif; ?>
 
         <section class="admin-section">
             <h2>Gestion des utilisateurs</h2>
-            <div class="table-responsive">
+            <div class="admin-table-responsive">
                 <table class="admin-table">
                     <thead>
                         <tr>
@@ -146,25 +146,25 @@ write_log("Fin du chargement de admin.php");
                             <?php foreach ($users as $user): ?>
                             <tr>
                                 <td><?php echo $user['id']; ?></td>
-                                <td class="readonly-cell"><?php echo htmlspecialchars($user['nickname']); ?></td>
-                                <td class="readonly-cell"><?php echo htmlspecialchars($user['email']); ?></td>
+                                <td class="admin-readonly-cell"><?php echo htmlspecialchars($user['nickname']); ?></td>
+                                <td class="admin-readonly-cell"><?php echo htmlspecialchars($user['email']); ?></td>
                                 <td>
-                                    <form method="POST" class="inline-form">
+                                    <form method="POST" class="admin-inline-form">
                                         <input type="hidden" name="action" value="update_user">
                                         <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
-                                        <select name="role" class="form-select">
+                                        <select name="role" class="admin-form-select">
                                             <option value="client" <?php echo $user['role'] === 'client' ? 'selected' : ''; ?>>Client</option>
                                             <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Admin</option>
                                         </select>
-                                        <button type="submit" class="btn-save">Enregistrer</button>
+                                        <button type="submit" class="admin-btn-save">Enregistrer</button>
                                     </form>
                                 </td>
                                 <td>
                                     <?php if ($user['id'] != $_SESSION['user']['id']): ?>
-                                    <form method="POST" class="inline-form" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                                    <form method="POST" class="admin-inline-form" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
                                         <input type="hidden" name="action" value="delete_user">
                                         <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
-                                        <button type="submit" class="btn-delete">Supprimer</button>
+                                        <button type="submit" class="admin-btn-delete">Supprimer</button>
                                     </form>
                                     <?php endif; ?>
                                 </td>
@@ -182,7 +182,7 @@ write_log("Fin du chargement de admin.php");
 
         <section class="admin-section">
             <h2>Gestion des enclos</h2>
-            <div class="table-responsive">
+            <div class="admin-table-responsive">
                 <table class="admin-table">
                     <thead>
                         <tr>
@@ -195,59 +195,45 @@ write_log("Fin du chargement de admin.php");
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        try {
-                            // Récupération des enclos avec leurs animaux
-                            $stmt = $pdo->query("SELECT e.*, a.name as animal_name 
-                                               FROM enclos e 
-                                               LEFT JOIN animaux a ON e.id = a.id 
-                                               ORDER BY e.id");
-                            $enclos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            
-                            if (!empty($enclos)) {
-                                foreach ($enclos as $enclos_item) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $enclos_item['id']; ?></td>
-                                        <td><?php echo htmlspecialchars($enclos_item['animal_name']); ?></td>
-                                        <td>
-                                            <form method="POST" class="inline-form">
-                                                <input type="hidden" name="action" value="update_enclos">
-                                                <input type="hidden" name="enclos_id" value="<?php echo $enclos_item['id']; ?>">
-                                                <input type="text" 
-                                                       name="h_deb_repas" 
-                                                       value="<?php echo htmlspecialchars($enclos_item['h_deb_repas']); ?>" 
-                                                       class="form-input" 
-                                                       placeholder="ex: 12h30">
-                                        </td>
-                                        <td>
-                                            <input type="text" 
-                                                   name="h_fin_repas" 
-                                                   value="<?php echo htmlspecialchars($enclos_item['h_fin_repas']); ?>" 
-                                                   class="form-input" 
-                                                   placeholder="ex: 14h00">
-                                        </td>
-                                        <td>
-                                            <select name="Statut" class="form-select">
-                                                <option value="1" <?php echo ($enclos_item['Statut'] == 1) ? 'selected' : ''; ?>>Ouvert</option>
-                                                <option value="0" <?php echo ($enclos_item['Statut'] == 0) ? 'selected' : ''; ?>>Fermé</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <button type="submit" class="btn-save">Enregistrer</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                }
-                            } else {
-                                echo "<tr><td colspan='6'>Aucun enclos trouvé</td></tr>";
-                            }
-                        } catch (PDOException $e) {
-                            write_log("Erreur récupération enclos: " . $e->getMessage());
-                            echo "<tr><td colspan='6'>Erreur lors de la récupération des enclos</td></tr>";
-                        }
-                        ?>
+                        <?php if (isset($enclos) && !empty($enclos)): ?>
+                            <?php foreach ($enclos as $enclos_item): ?>
+                            <tr>
+                                <td><?php echo $enclos_item['id']; ?></td>
+                                <td><?php echo htmlspecialchars($enclos_item['animal_name']); ?></td>
+                                <td>
+                                    <form method="POST" class="admin-inline-form">
+                                        <input type="hidden" name="action" value="update_enclos">
+                                        <input type="hidden" name="enclos_id" value="<?php echo $enclos_item['id']; ?>">
+                                        <input type="text" 
+                                               name="h_deb_repas" 
+                                               value="<?php echo htmlspecialchars($enclos_item['h_deb_repas']); ?>" 
+                                               class="admin-form-input" 
+                                               placeholder="ex: 12h30">
+                                </td>
+                                <td>
+                                        <input type="text" 
+                                               name="h_fin_repas" 
+                                               value="<?php echo htmlspecialchars($enclos_item['h_fin_repas']); ?>" 
+                                               class="admin-form-input" 
+                                               placeholder="ex: 14h00">
+                                </td>
+                                <td>
+                                        <select name="Statut" class="admin-form-select">
+                                            <option value="1" <?php echo ($enclos_item['Statut'] == 1) ? 'selected' : ''; ?>>Ouvert</option>
+                                            <option value="0" <?php echo ($enclos_item['Statut'] == 0) ? 'selected' : ''; ?>>Fermé</option>
+                                        </select>
+                                </td>
+                                <td>
+                                        <button type="submit" class="admin-btn-save">Enregistrer</button>
+                                        </form>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6">Aucun enclos trouvé</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

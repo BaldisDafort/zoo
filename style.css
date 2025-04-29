@@ -17,6 +17,16 @@
     /* 📝 Textes */
     --color-text-light: #ffffff;
     --color-text-dark: #222222;
+
+    /* 🎨 Couleurs d'administration */
+    --admin-bg-light: #ffffff;
+    --admin-bg-alt: #f5f5f5;
+    --admin-border: #e0e0e0;
+    --admin-hover: #e8f4f8;
+    --admin-success: #4CAF50;
+    --admin-success-hover: #45a049;
+    --admin-danger: #f44336;
+    --admin-danger-hover: #da190b;
 }
 
 /* Styles généraux */
