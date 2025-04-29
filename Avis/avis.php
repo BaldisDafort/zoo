@@ -25,7 +25,7 @@ try {
             </div>
         <?php else: ?>
             <h2>Laissez votre avis</h2>
-            <form id="reviewForm" action="avis_save.php" method="POST">
+            <form id="reviewForm" action="../index.php?p=avis_save" method="POST">
                 <div class="form-group">
                     <label for="nom">Nom :</label>
                     <input type="text" name="nom" id="nom" value="<?php echo isset($_SESSION['user']) ? htmlspecialchars($_SESSION['user']['nickname']) : ''; ?>" readonly>

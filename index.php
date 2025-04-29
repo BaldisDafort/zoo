@@ -84,6 +84,9 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
             case "avis":
                 include("./Avis/avis.php");
                 break;
+            case "avis_save":
+                include("./Avis/avis_save.php");
+                break;
             case "enclos":
                 include("./Enclos/enclos.php");
                 break;
