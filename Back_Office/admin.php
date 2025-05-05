@@ -190,8 +190,6 @@ write_log("Fin du chargement de admin.php");
                         <tr>
                             <th>ID</th>
                             <th>Animal</th>
-                            <th>Heure début repas</th>
-                            <th>Heure fin repas</th>
                             <th>Statut</th>
                             <th>Actions</th>
                         </tr>
@@ -216,24 +214,10 @@ write_log("Fin du chargement de admin.php");
                                             <form method="POST" class="inline-form">
                                                 <input type="hidden" name="action" value="update_enclos">
                                                 <input type="hidden" name="enclos_id" value="<?php echo $enclos_item['id']; ?>">
-                                                <input type="text" 
-                                                       name="h_deb_repas" 
-                                                       value="<?php echo htmlspecialchars($enclos_item['h_deb_repas']); ?>" 
-                                                       class="form-input" 
-                                                       placeholder="ex: 12h30">
-                                        </td>
-                                        <td>
-                                            <input type="text" 
-                                                   name="h_fin_repas" 
-                                                   value="<?php echo htmlspecialchars($enclos_item['h_fin_repas']); ?>" 
-                                                   class="form-input" 
-                                                   placeholder="ex: 14h00">
-                                        </td>
-                                        <td>
-                                            <select name="Statut" class="form-select">
-                                                <option value="1" <?php echo ($enclos_item['Statut'] == 1) ? 'selected' : ''; ?>>Ouvert</option>
-                                                <option value="0" <?php echo ($enclos_item['Statut'] == 0) ? 'selected' : ''; ?>>Fermé</option>
-                                            </select>
+                                                <select name="Statut" class="form-select">
+                                                    <option value="1" <?php echo ($enclos_item['Statut'] == 1) ? 'selected' : ''; ?>>Ouvert</option>
+                                                    <option value="0" <?php echo ($enclos_item['Statut'] == 0) ? 'selected' : ''; ?>>Fermé</option>
+                                                </select>
                                         </td>
                                         <td>
                                             <button type="submit" class="btn-save">Enregistrer</button>
@@ -243,11 +227,11 @@ write_log("Fin du chargement de admin.php");
                                     <?php
                                 }
                             } else {
-                                echo "<tr><td colspan='6'>Aucun enclos trouvé</td></tr>";
+                                echo "<tr><td colspan='4'>Aucun enclos trouvé</td></tr>";
                             }
                         } catch (PDOException $e) {
                             write_log("Erreur récupération enclos: " . $e->getMessage());
-                            echo "<tr><td colspan='6'>Erreur lors de la récupération des enclos</td></tr>";
+                            echo "<tr><td colspan='4'>Erreur lors de la récupération des enclos</td></tr>";
                         }
                         ?>
                     </tbody>

@@ -155,6 +155,19 @@ nav {
     .user-menu:hover .dropdown-menu {
         display: block;
     }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .ticket-grid {
+        padding: 0 1rem;
+    }
+
+    .info-card, .ticket-card {
+        margin: 0 1rem;
+    }
 }
 
 .nav-links a {
