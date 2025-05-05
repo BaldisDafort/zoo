@@ -76,38 +76,61 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
     <script src="Enclos/enclos.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
-        // Gestion du menu mobile
-        document.addEventListener('DOMContentLoaded', function() {
+        // Attendre que le DOM soit complètement chargé
+        window.onload = function() {
+            console.log('=== DÉBUT DU SCRIPT DE NAVIGATION ===');
+            
+            // Sélection des éléments
             const menuToggle = document.querySelector('.menu-toggle');
             const navLinks = document.querySelector('.nav-links');
+            
+            if (!menuToggle || !navLinks) {
+                console.error('ERREUR: Éléments de navigation non trouvés');
+                return;
+            }
+            
+            console.log('Éléments de navigation trouvés avec succès');
 
             // Fonction pour vérifier le mode de la navigation
             function checkNavMode() {
                 const isMobile = window.innerWidth <= 768;
-                console.log(`Mode de navigation: ${isMobile ? 'Mobile' : 'Desktop'}`);
+                console.log('=== ÉTAT DE LA NAVIGATION ===');
+                console.log('Largeur de la fenêtre:', window.innerWidth);
+                console.log('Mode:', isMobile ? 'MOBILE' : 'DESKTOP');
+                console.log('==========================');
                 return isMobile;
             }
 
             // Vérifier le mode au chargement
             checkNavMode();
 
-            // Vérifier le mode lors du redimensionnement de la fenêtre
-            window.addEventListener('resize', checkNavMode);
-
-            menuToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                console.log(`Menu mobile ${navLinks.classList.contains('active') ? 'ouvert' : 'fermé'}`);
+            // Vérifier le mode lors du redimensionnement
+            window.addEventListener('resize', function() {
+                console.log('Redimensionnement détecté');
+                checkNavMode();
             });
 
-            // Fermer le menu quand on clique sur un lien
+            // Gestion du menu hamburger
+            menuToggle.addEventListener('click', function() {
+                console.log('=== CLIC SUR LE MENU HAMBURGER ===');
+                navLinks.classList.toggle('active');
+                console.log('État du menu:', navLinks.classList.contains('active') ? 'OUVERT' : 'FERMÉ');
+                console.log('================================');
+            });
+
+            // Fermer le menu au clic sur un lien
             const navLinksItems = document.querySelectorAll('.nav-links a');
             navLinksItems.forEach(link => {
                 link.addEventListener('click', () => {
+                    console.log('=== CLIC SUR UN LIEN ===');
                     navLinks.classList.remove('active');
-                    console.log('Menu mobile fermé après clic sur un lien');
+                    console.log('Menu fermé après clic');
+                    console.log('=====================');
                 });
             });
-        });
+
+            console.log('=== SCRIPT DE NAVIGATION CHARGÉ ===');
+        };
     </script>
 </head>
 <body>
