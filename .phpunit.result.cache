@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\UserTest::testUserLogin":4,"Tests\\UserTest::testInvalidLogin":4,"Tests\\UserTest::testUpdateUserRole":4,"Tests\\UserTest::testDeleteUser":4},"times":{"Tests\\UserTest::testUserLogin":0.487,"Tests\\UserTest::testInvalidLogin":0.001,"Tests\\UserTest::testUpdateUserRole":0.001,"Tests\\UserTest::testDeleteUser":0.001}}
