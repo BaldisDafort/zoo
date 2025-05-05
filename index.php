@@ -81,8 +81,22 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
             const menuToggle = document.querySelector('.menu-toggle');
             const navLinks = document.querySelector('.nav-links');
 
+            // Fonction pour vérifier le mode de la navigation
+            function checkNavMode() {
+                const isMobile = window.innerWidth <= 768;
+                console.log(`Mode de navigation: ${isMobile ? 'Mobile' : 'Desktop'}`);
+                return isMobile;
+            }
+
+            // Vérifier le mode au chargement
+            checkNavMode();
+
+            // Vérifier le mode lors du redimensionnement de la fenêtre
+            window.addEventListener('resize', checkNavMode);
+
             menuToggle.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
+                console.log(`Menu mobile ${navLinks.classList.contains('active') ? 'ouvert' : 'fermé'}`);
             });
 
             // Fermer le menu quand on clique sur un lien
@@ -90,6 +104,7 @@ if (isset($_SESSION['redirect_after_login']) && isset($_SESSION['user'])) {
             navLinksItems.forEach(link => {
                 link.addEventListener('click', () => {
                     navLinks.classList.remove('active');
+                    console.log('Menu mobile fermé après clic sur un lien');
                 });
             });
         });
