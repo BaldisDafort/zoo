@@ -238,6 +238,61 @@ write_log("Fin du chargement de admin.php");
                 </table>
             </div>
         </section>
+
+                <section class="admin-section">
+            <h2>Gestion Animaux</h2>
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>nom</th>
+                            <th>origine</th>
+                            <th>année de naissance</th>
+                            <th>sexe</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php                         
+                        try {
+                            // Récupération des enclos avec leurs animaux
+                            $stmt = $pdo->query("SELECT e.*, a.name as animal_name 
+                                               FROM animal e 
+                                               ORDER BY e.id");
+                                                        if (!empty($animal)) {
+                                foreach ($animal as $animal_item) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $enclos_item['id']; ?></td>
+                                        <td><?php echo htmlspecialchars($animal_item['animal_name']); ?></td>
+                                        <td>
+                                            <form method="POST" class="inline-form">
+                                                <input type="hidden" name="action" value="update_enclos">
+                                                <input type="hidden" name="enclos_id" value="<?php echo $enclos_item['id']; ?>">
+                                                <select name="Statut" class="form-select">
+                                                    <option value="1" <?php echo ($enclos_item['Statut'] == 1) ? 'selected' : ''; ?>>Ouvert</option>
+                                                    <option value="0" <?php echo ($enclos_item['Statut'] == 0) ? 'selected' : ''; ?>>Fermé</option>
+                                                </select>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn-save">Enregistrer</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                echo "<tr><td colspan='4'>Aucun animal trouvé</td></tr>";
+                            }
+                        } catch (PDOException $e) {
+                            write_log("Erreur récupération animal: " . $e->getMessage());
+                            echo "<tr><td colspan='4'>Erreur lors de la récupération de l'animal</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
 </div>
 
