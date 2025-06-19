@@ -112,6 +112,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['error_message'] = "Erreur lors de la suppression de l'animal : " . $e->getMessage();
                 }
                 break;
+
+            case 'add_animal':
+                try {
+                    $stmt = $pdo->prepare("INSERT INTO animal (nom, origine, sexe, naissance) VALUES (?, ?, ?, ?)");
+                    $stmt->execute([$_POST['nom'], $_POST['origine'], $_POST['sexe'], $_POST['naissance']]);
+                    $_SESSION['success_message'] = "Animal ajouté avec succès";
+                    write_log("Animal ajouté avec succès");
+                } catch (PDOException $e) {
+                    write_log("Erreur ajout animal: " . $e->getMessage());
+                    $_SESSION['error_message'] = "Erreur lors de l'ajout de l'animal : " . $e->getMessage();
+                }
+                break;
         }
     }
 }
@@ -275,6 +287,40 @@ write_log("Fin du chargement de admin.php");
 
         <section class="admin-section">
             <h2>Gestion des animaux</h2>
+            
+            <!-- Formulaire d'ajout d'animal -->
+            <div class="add-form-container">
+                <h3>Ajouter un nouvel animal</h3>
+                <form method="POST" class="admin-add-form">
+                    <input type="hidden" name="action" value="add_animal">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="new_nom">Nom :</label>
+                            <input type="text" id="new_nom" name="nom" required class="admin-form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="new_origine">Origine :</label>
+                            <input type="text" id="new_origine" name="origine" required class="admin-form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="new_sexe">Sexe :</label>
+                            <select id="new_sexe" name="sexe" required class="admin-form-select">
+                                <option value="">Sélectionner</option>
+                                <option value="H">Mâle</option>
+                                <option value="F">Femelle</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="new_naissance">Date de naissance :</label>
+                            <input type="date" id="new_naissance" name="naissance" required class="admin-form-input">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="admin-btn-add">Ajouter l'animal</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             <div class="table-responsive">
                 <table class="admin-table">
                     <thead>
