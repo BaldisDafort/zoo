@@ -88,6 +88,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['error_message'] = "Erreur lors de la mise à jour de l'enclos : " . $e->getMessage();
                 }
                 break;
+
+            case 'update_animal':
+                try {
+                    $stmt = $pdo->prepare("UPDATE animal SET nom = ?, origine = ?, sexe = ?, naissance = ? WHERE id = ?");
+                    $stmt->execute([$_POST['nom'], $_POST['origine'], $_POST['sexe'], $_POST['naissance'], $_POST['animal_id']]);
+                    $_SESSION['success_message'] = "Animal mis à jour avec succès";
+                    write_log("Animal mis à jour avec succès");
+                } catch (PDOException $e) {
+                    write_log("Erreur mise à jour animal: " . $e->getMessage());
+                    $_SESSION['error_message'] = "Erreur lors de la mise à jour de l'animal : " . $e->getMessage();
+                }
+                break;
+
+            case 'delete_animal':
+                try {
+                    $stmt = $pdo->prepare("DELETE FROM animal WHERE id = ?");
+                    $stmt->execute([$_POST['animal_id']]);
+                    $_SESSION['success_message'] = "Animal supprimé avec succès";
+                    write_log("Animal supprimé avec succès");
+                } catch (Exception $e) {
+                    write_log("Erreur suppression animal: " . $e->getMessage());
+                    $_SESSION['error_message'] = "Erreur lors de la suppression de l'animal : " . $e->getMessage();
+                }
+                break;
         }
     }
 }
@@ -111,6 +135,16 @@ try {
 } catch (PDOException $e) {
     write_log("Erreur récupération enclos: " . $e->getMessage());
     $_SESSION['error_message'] = "Erreur lors de la récupération des enclos : " . $e->getMessage();
+}
+
+try {
+    write_log("Tentative de récupération des animaux");
+    $stmt = $pdo->query("SELECT * FROM animal ORDER BY id");
+    $animaux = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    write_log("Nombre d'animaux récupérés : " . count($animaux));
+} catch (PDOException $e) {
+    write_log("Erreur récupération animaux: " . $e->getMessage());
+    $_SESSION['error_message'] = "Erreur lors de la récupération des animaux : " . $e->getMessage();
 }
 
 write_log("Fin du chargement de admin.php");
@@ -239,56 +273,59 @@ write_log("Fin du chargement de admin.php");
             </div>
         </section>
 
-                <section class="admin-section">
-            <h2>Gestion Animaux</h2>
+        <section class="admin-section">
+            <h2>Gestion des animaux</h2>
             <div class="table-responsive">
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>nom</th>
-                            <th>origine</th>
-                            <th>année de naissance</th>
-                            <th>sexe</th>
-
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Origine</th>
+                            <th>Sexe</th>
+                            <th>Date de naissance</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php                         
-                        try {
-                            // Récupération des enclos avec leurs animaux
-                            $stmt = $pdo->query("SELECT e.*, a.name as animal_name 
-                                               FROM animal e 
-                                               ORDER BY e.id");
-                                                        if (!empty($animal)) {
-                                foreach ($animal as $animal_item) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $enclos_item['id']; ?></td>
-                                        <td><?php echo htmlspecialchars($animal_item['animal_name']); ?></td>
-                                        <td>
-                                            <form method="POST" class="inline-form">
-                                                <input type="hidden" name="action" value="update_enclos">
-                                                <input type="hidden" name="enclos_id" value="<?php echo $enclos_item['id']; ?>">
-                                                <select name="Statut" class="form-select">
-                                                    <option value="1" <?php echo ($enclos_item['Statut'] == 1) ? 'selected' : ''; ?>>Ouvert</option>
-                                                    <option value="0" <?php echo ($enclos_item['Statut'] == 0) ? 'selected' : ''; ?>>Fermé</option>
-                                                </select>
-                                        </td>
-                                        <td>
-                                            <button type="submit" class="btn-save">Enregistrer</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                }
-                            } else {
-                                echo "<tr><td colspan='4'>Aucun animal trouvé</td></tr>";
-                            }
-                        } catch (PDOException $e) {
-                            write_log("Erreur récupération animal: " . $e->getMessage());
-                            echo "<tr><td colspan='4'>Erreur lors de la récupération de l'animal</td></tr>";
-                        }
-                        ?>
+                        <?php if (isset($animaux) && !empty($animaux)): ?>
+                            <?php foreach ($animaux as $animal): ?>
+                            <tr>
+                                <td><?php echo $animal['id']; ?></td>
+                                <td>
+                                    <input type="text" name="nom" value="<?php echo htmlspecialchars($animal['nom']); ?>" class="admin-form-input" form="update-animal-form-<?php echo $animal['id']; ?>">
+                                </td>
+                                <td>
+                                    <input type="text" name="origine" value="<?php echo htmlspecialchars($animal['origine']); ?>" class="admin-form-input" form="update-animal-form-<?php echo $animal['id']; ?>">
+                                </td>
+                                <td>
+                                    <select name="sexe" class="admin-form-select" form="update-animal-form-<?php echo $animal['id']; ?>">
+                                        <option value="H" <?php echo $animal['sexe'] === 'H' ? 'selected' : ''; ?>>Mâle</option>
+                                        <option value="F" <?php echo $animal['sexe'] === 'F' ? 'selected' : ''; ?>>Femelle</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="date" name="naissance" value="<?php echo $animal['naissance']; ?>" class="admin-form-input" form="update-animal-form-<?php echo $animal['id']; ?>">
+                                </td>
+                                <td>
+                                    <form id="update-animal-form-<?php echo $animal['id']; ?>" method="POST" class="admin-inline-form">
+                                        <input type="hidden" name="action" value="update_animal">
+                                        <input type="hidden" name="animal_id" value="<?php echo $animal['id']; ?>">
+                                        <button type="submit" class="admin-btn-save">Enregistrer</button>
+                                        <button type="button" class="admin-btn-delete" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cet animal ?')) { document.getElementById('delete-animal-form-<?php echo $animal['id']; ?>').submit(); }">Supprimer</button>
+                                    </form>
+                                    <form id="delete-animal-form-<?php echo $animal['id']; ?>" method="POST" style="display: none;">
+                                        <input type="hidden" name="action" value="delete_animal">
+                                        <input type="hidden" name="animal_id" value="<?php echo $animal['id']; ?>">
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6">Aucun animal trouvé</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
